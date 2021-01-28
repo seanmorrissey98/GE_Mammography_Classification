@@ -1,6 +1,5 @@
 from fitness.base_ff_classes.base_ff import base_ff
 import pandas as pd
-import random
 
 class Mammography(base_ff):
     """
@@ -77,8 +76,3 @@ class Mammography(base_ff):
         fn = 1 if tp + fn == 0 else fn
         #print("Done. ", random.randint(0,1000))
         return tp/(tp+fn)
-
-
-# --debug --grammar_file test.pybnf --verbose --fitness_function trading2 --generations 20 --population 20 --random_seed 517470
-# add cache
-# --target_seed_folder my_seeds
