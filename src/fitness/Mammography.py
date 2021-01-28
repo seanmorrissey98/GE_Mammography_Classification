@@ -12,7 +12,7 @@ class Mammography(base_ff):
         # Initialise base fitness function class.
         super().__init__()
 
-        in_file = "C:/Users/seanm/Desktop/PonyGE2/data/haralick02_50K.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         haralick_features = []
         for i in range(104):
@@ -49,7 +49,7 @@ class Mammography(base_ff):
 
         p, d = ind.phenotype, {}
         n_points = len(data)  # Number of data points available . . 4999
-        in_file = "C:/Users/seanm/Desktop/PonyGE2/data/haralick02_50K.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         labels = df['Label']
         tp, fn = 0,0
