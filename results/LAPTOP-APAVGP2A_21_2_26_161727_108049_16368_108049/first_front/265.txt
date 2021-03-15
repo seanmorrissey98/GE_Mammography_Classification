@@ -1,0 +1,22 @@
+Generation:
+6
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 9
+  if main[index] + opposite[index] > sum(main[-index:]) - sum(main[-index:]) + sum(opposite[-index:]):
+    x = (x - 0.00001)
+  index = 22
+  if main[index] + main[index] - main[index] + main[index] - opposite[index] + opposite[index] - opposite[index] - opposite[index] > sum(main[:-index]) + main[index]:
+    x = (x - 0.9)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[23027, 91805, 17769, 78113, 20701, 38081, 23087, 34750, 16384, 27079, 12023, 46857, 9258, 31578, 60778, 66781, 31940, 71675, 2792, 20875, 12242, 53365, 63824, 70815, 32612, 25916, 12542, 61832, 18012, 71342, 28407, 98175, 65613, 22016, 95498, 75662, 39902, 51656, 75807, 10911, 13624, 65943, 45384, 5195, 3916, 36612, 98298, 14313, 1872, 78570, 2694, 91729, 70195, 1772, 1908, 89477, 63806, 88494, 92816, 30535, 13114, 2018, 5270, 60940, 62217, 16398, 34705, 9912, 76104, 41420, 33073, 18883, 22054, 51433, 39558, 21667, 70756, 92213, 24814, 1754, 75820, 59737, 89620, 13483, 4778, 49555, 64844, 38574, 33737, 49746, 76962, 60553, 59023, 71011, 94240, 90715, 35756, 89219, 25990, 32028, 91817, 62208, 12298, 25546, 85788, 41683, 30979, 29523, 84080, 29193, 56063, 80691, 50901, 29154, 17219, 67146, 42090, 13143, 35278, 47408, 60972, 56400, 6574, 15098, 26790, 52971]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 9)) {::} (<if> if  (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> opposite[index]))))   (<eval> >)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))   (<combine> -)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))   (<combine> +)   (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:])))))))) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :}) {::} (<code> (<index> index =  (<n> 22)) {::} (<if> if  (<data> (<combo> (<data> (<combo> (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> main[index]))))   (<combine> -)   (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> main[index]))))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> +)   (<data> (<point> opposite[index]))))   (<combine> -)   (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<point> opposite[index]))))))))   (<eval> >)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))   (<combine> +)   (<data> (<point> main[index])))) :{:x =  (<expr> (x -  (<decimal> 0.9) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9982953334753889, 0.5229813381372888]

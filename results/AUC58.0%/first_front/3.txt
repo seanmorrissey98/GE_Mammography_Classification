@@ -1,0 +1,21 @@
+Generation:
+10
+
+Phenotype:
+def p():
+  x = 0.0
+  n = 15
+  b = 20
+  c = main[20]
+  if opposite[b] > opposite[23] + 2:
+    x = (x + 0.1)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[54370, 70500, 89216, 50249, 45252, 74545, 72032, 79234, 18154, 74714, 25469, 38270, 55777, 4359, 45668, 89452, 58579, 21500, 77125]
+Tree:
+None
+
+Fitness:
+[1.0, 0.5800350262697023]

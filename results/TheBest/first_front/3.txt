@@ -1,0 +1,55 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 16
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x - 0.4)
+  index = 46
+  if main[index] < 1:
+    if main[index] > main[index] + 0.9:
+      x = (x - 0.000001)
+  else:
+    if main[index] < main[index] + 6:
+      x = (x - 0.5)
+    else:
+      x = (x - 0.000001)
+  index = 29
+  if main[index] < 1:
+    if opposite[index] > main[index] + 0.9:
+      x = (x + 0.001)
+  else:
+    if opposite[index] < main[index] + 9:
+      x = (x + 0.001)
+    else:
+      x = (x + 0.0001)
+  index = 30
+  if opposite[index] > main[index]:
+    x = (x - 0.8)
+  index = 45
+  if opposite[index] > main[index]:
+    x = (x + 0.4)
+  index = 10
+  if main[index] < 1:
+    if opposite[index] < opposite[index] + 0.2:
+      x = (x + 0.1)
+  else:
+    if opposite[index] > main[index] + 2:
+      x = (x + 0.6)
+    else:
+      x = (x + 0.8)
+  index = 38
+  if opposite[index] > opposite[index]:
+    x = (x + 0.0000001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[51038, 71953, 14600, 65233, 24321, 31671, 170, 98792, 59787, 13078, 75801, 20110, 16277, 7746, 17955, 96047, 8836, 74545, 50060, 81649, 62648, 44478, 47680, 81260, 60876, 57355, 23476, 21738, 24000, 80212, 60386, 55119, 25428, 63508, 53140, 10312, 49477, 30630, 43328, 50408, 34349, 59760, 41276, 78536, 31001, 44866, 44737, 74286, 45998, 71805, 71236, 2936, 2957, 78808, 85751, 54566, 14158, 68731, 61762, 97, 5088, 64071, 18281, 9131, 66264, 43655, 26943, 98413, 78235, 20781, 11565, 85419, 20542, 6539, 5059, 18120, 1729, 36904, 88996, 36147, 42916, 42182, 27178, 38220, 24139, 66442, 84148, 83134, 24881, 85718, 71470, 25028, 79508, 87789, 70078, 55984, 35043, 70253, 20641, 38161, 43669, 23003, 59023, 33283, 30562, 35460, 46566, 30319, 18654, 43758, 54878, 95038, 14129, 48366, 76974, 94484, 5023, 84607, 11273, 26901, 22225, 15781, 9185, 13980, 51041, 87313, 68462, 51646, 10653, 1226, 16002, 9496, 96436, 17453, 72654, 87725, 44110, 68474, 66235, 59012, 99039, 91776, 9447, 12230, 13443, 55195, 87024]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 16)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 5000) :{:x =  (<expr> (x -  (<decimal> 0.4) )) :})) {::} (<code> (<index> index =  (<n> 46)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> main[index])  >  (<point> main[index])  +  (<decimal> 0.9) :{:x =  (<expr> (x -  (<decimal> 0.000001) )) :}) :}else:{: (<compareInt> if  (<point> main[index])  <  (<point> main[index])  +  (<ints> 6) :{:x =  (<expr> (x -  (<decimal> 0.5) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.000001) )) :}) :}) {::} (<code> (<index> index =  (<n> 29)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  >  (<point> main[index])  +  (<decimal> 0.9) :{:x =  (<expr> (x +  (<decimal> 0.001) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  <  (<point> main[index])  +  (<ints> 9) :{:x =  (<expr> (x +  (<decimal> 0.001) )) :}else:{:x =  (<expr> (x +  (<decimal> 0.0001) )) :}) :}) {::} (<code> (<index> index =  (<n> 30)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.8) )) :})) {::} (<code> (<index> index =  (<n> 45)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.4) )) :}))) {::} (<code> (<index> index =  (<n> 10)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  <  (<point> opposite[index])  +  (<decimal> 0.2) :{:x =  (<expr> (x +  (<decimal> 0.1) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  >  (<point> main[index])  +  (<ints> 2) :{:x =  (<expr> (x +  (<decimal> 0.6) )) :}else:{:x =  (<expr> (x +  (<decimal> 0.8) )) :}) :}) {::} (<code> (<index> index =  (<n> 38)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x +  (<decimal> 0.0000001) )) :}))))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9731515022373748, 0.9825189559868416]

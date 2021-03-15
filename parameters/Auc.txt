@@ -5,7 +5,7 @@ CROSSOVER_PROBABILITY:  0.80
 DEBUG:                  False
 GENERATIONS:            100
 MAX_GENOME_LENGTH:      500
-GRAMMAR_FILE:           mammography.pybnf
+GRAMMAR_FILE:           FypV2.pybnf
 INITIALISATION:         uniform_tree
 INVALID_SELECTION:      False
 MAX_INIT_TREE_DEPTH:    6
@@ -13,9 +13,8 @@ MIN_INIT_TREE_DEPTH:    1
 MAX_TREE_DEPTH:         17
 MUTATION:               int_flip_per_codon
 MUTATION_PROBABILITY:  	0.20
-POPULATION_SIZE:        10
+POPULATION_SIZE:        1000
 FITNESS_FUNCTION:       Auc
-REPLACEMENT:            generational
 SELECTION:              tournament
 TOURNAMENT_SIZE:        5
 VERBOSE:                True

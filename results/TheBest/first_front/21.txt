@@ -1,0 +1,49 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 48
+  if main[index] < 1:
+    if main[index] > main[index] + 0.000001:
+      x = (x - 0.7)
+  else:
+    if opposite[index] < opposite[index] + 8:
+      x = (x - 0.3)
+    else:
+      x = (x - 0.2)
+  index = 32
+  if abs(sum(main) - sum(opposite)) > 10000:
+    x = (x + 0.5)
+  index = 18
+  if main[index] > main[index]:
+    x = (x - 0.0001)
+  index = 45
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 500:
+    x = (x - 0.00001)
+  index = 9
+  if main[index] < opposite[index]:
+    x = (x - 0.0001)
+  index = 14
+  if opposite[index] > main[index]:
+    x = (x - 0.001)
+  index = 7
+  if opposite[index] > opposite[index]:
+    x = (x - 0.7)
+  index = 0
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 500:
+    x = (x + 0.1)
+  index = 13
+  if main[index] > main[index]:
+    x = (x - 0.00001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[82763, 81687, 19547, 62023, 80860, 11065, 9483, 80228, 70753, 24117, 14706, 54383, 28833, 85272, 34853, 18281, 69498, 22880, 77827, 11108, 34142, 72460, 29153, 47147, 50476, 64992, 37265, 91378, 34431, 60951, 42529, 44832, 90436, 87058, 98444, 36928, 61806, 85774, 37614, 90001, 56806, 99116, 66575, 66495, 70060, 72694, 65830, 26581, 98481, 7485, 94754, 96220, 79890, 488, 27421, 60709, 85693, 38992, 23322, 29496, 18527, 53785, 85851, 25935, 73616, 3674, 18128, 19198, 142, 82128, 35089, 80775, 51092, 27897, 15781, 54643, 19357, 65755, 99421, 3394, 30355, 50499, 39244, 98386, 96716, 54792, 70234, 19039, 65274, 79265, 27520, 95132, 20499, 49808, 71395, 28250, 15542, 20319, 9174, 42395, 14507, 67716, 86583, 94002, 19009, 86464, 85853, 4195, 89279, 59354, 59748, 84853, 46227, 76934, 94287, 72395, 96709, 74317, 74481, 28263, 84054, 69893, 62747, 7545, 85200, 56013, 99468, 40059, 6002, 49408, 77305, 62615, 27265, 61615, 40469, 69721, 21498, 39608, 47023, 55832, 23091, 46394, 5106, 18401, 11761, 1731, 55694, 79046, 18953, 78950, 49610, 16457, 16607, 92203, 93583, 39168]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 48)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> main[index])  >  (<point> main[index])  +  (<decimal> 0.000001) :{:x =  (<expr> (x -  (<decimal> 0.7) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  <  (<point> opposite[index])  +  (<ints> 8) :{:x =  (<expr> (x -  (<decimal> 0.3) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.2) )) :}) :}) {::} (<code> (<index> index =  (<n> 32)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 10000) :{:x =  (<expr> (x +  (<decimal> 0.5) )) :})) {::} (<code> (<index> index =  (<n> 18)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.0001) )) :}))) {::} (<code> (<index> index =  (<n> 45)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[:-index])) ) >  (<smaller> 500) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :})) {::} (<code> (<index> index =  (<n> 9)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.0001) )) :})) {::} (<code> (<index> index =  (<n> 14)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.001) )) :})) {::} (<code> (<index> index =  (<n> 7)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.7) )) :}))) {::} (<code> (<index> index =  (<n> 0)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[:-index]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 500) :{:x =  (<expr> (x +  (<decimal> 0.1) )) :})) {::} (<code> (<index> index =  (<n> 13)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.977626251864479, 0.8596718142351468]

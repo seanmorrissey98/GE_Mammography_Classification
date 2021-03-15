@@ -1,0 +1,76 @@
+Generation:
+6
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 2
+  if sum(main[:-index]) < opposite[index]:
+    x = (x - 0.00001)
+  index = 20
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 5000:
+    x = (x - 0.6)
+  index = 22
+  if abs(sum(main[-index:]) - sum(opposite[-index:])) > 100:
+    x = (x + 0.7)
+  index = 18
+  if opposite[index] > opposite[index]:
+    x = (x + 0.01)
+  index = 44
+  if main[index] > main[index]:
+    x = (x + 0.0000001)
+  index = 42
+  if opposite[index] > main[index]:
+    x = (x + 0.8)
+  index = 8
+  if main[index] < 1:
+    if opposite[index] < main[index] + 0.001:
+      x = (x - 0.001)
+  else:
+    if opposite[index] < opposite[index] + 0:
+      x = (x + 0.2)
+    else:
+      x = (x - 0.2)
+  index = 25
+  if opposite[index] > main[index]:
+    x = (x - 0.7)
+  index = 16
+  if opposite[index] < opposite[index]:
+    x = (x - 0.6)
+  index = 42
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 1000:
+    x = (x + 0.000001)
+  index = 28
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x - 0.6)
+  index = 0
+  if opposite[index] > opposite[index]:
+    x = (x - 0.7)
+  index = 48
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 500:
+    x = (x - 0.9)
+  index = 49
+  if opposite[index] < opposite[index]:
+    x = (x - 0.0001)
+  index = 28
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 50:
+    x = (x - 0.3)
+  index = 34
+  if main[index] > opposite[index]:
+    x = (x - 0.00001)
+  index = 33
+  if opposite[index] < opposite[index]:
+    x = (x + 0.2)
+  index = 38
+  if opposite[index] < opposite[index]:
+    x = (x - 0.0001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[28723, 93455, 87883, 16206, 4326, 46922, 79117, 11062, 80223, 97139, 13362, 41954, 33245, 45636, 43778, 30937, 15411, 75480, 50774, 43357, 96236, 43225, 98052, 67259, 63079, 465, 16908, 47334, 65508, 27409, 60264, 99755, 8749, 8464, 21799, 25365, 87701, 98723, 441, 56329, 14756, 46044, 86032, 59129, 86200, 59663, 88142, 43667, 32998, 16886, 4019, 29212, 16613, 37257, 38793, 12154, 5391, 26912, 26851, 11580, 24808, 79228, 61485, 75465, 44747, 17577, 97184, 81223, 24004, 93870, 56203, 58702, 74125, 67291, 87442, 88355, 48706, 12952, 38964, 58882, 35811, 33877, 35799, 10080, 34971, 65761, 29050, 74796, 34696, 80500, 95577, 76066, 42352, 84538, 29792, 25294, 95499, 49176, 44400, 74044, 12703, 9868, 80696, 17740, 51204, 85698, 62161, 7134, 40666, 19850, 79456, 33316, 10965, 64965, 36133, 45340, 43231, 16886, 11461, 79619, 73874, 28751, 5827, 13918, 85819, 18584, 10716, 71700, 92203, 30752, 93930, 74039, 10684, 25471, 47691, 3421, 73295, 13228, 3022, 65053, 12460, 92122, 37479, 46885, 12146, 5128, 83199, 88999, 37002, 41113, 25172, 32081, 40502, 52981, 17090, 13128, 5596, 63070, 10929, 2822, 13483, 8231, 8034, 55639, 96032, 45575, 12965, 33598, 42864, 61230, 19691, 96769, 67095, 90045, 20509, 2699, 11196, 6773, 93878, 89572, 37087, 51926, 91536, 94582, 95223, 67720, 88074, 4541, 38119, 36949, 23045, 12491, 5041, 50451, 47311, 88359, 26669, 77892, 23767, 58340, 12192, 75322, 62899, 24543, 77840, 55931, 256, 20957, 75894, 58287, 34176, 64961, 26353, 40649, 18478, 39797, 70432, 98641, 7471, 65034, 40938, 30646, 22282, 35218, 61268, 7061, 60123, 6819, 14957, 97137, 54534, 2932, 50076, 98925, 34869, 32410, 20940, 18335, 99351, 12912, 91700, 39047, 12296, 13700, 37828, 67244, 14503, 68939, 54880, 71848, 61204, 16689, 72459, 23183, 49239, 47618, 13629, 43527, 56154, 17584, 43449, 965, 14099, 68841, 26438, 42131, 25406, 20453, 1802, 57281, 50988, 52141, 51672, 47452, 77420, 32108, 887, 44872, 56573, 87376, 7752, 36381, 31373, 72296, 55301, 81559, 29404, 24734, 97441, 27631, 61963, 72718, 98267, 14147, 4370, 4262, 95666, 87895, 65290, 38170, 20731]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 2)) {::} (<if> if  (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :}) {::} (<code> (<index> index =  (<n> 20)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[:-index])) ) >  (<smaller> 5000) :{:x =  (<expr> (x -  (<decimal> 0.6) )) :})) {::} (<code> (<index> index =  (<n> 22)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 100) :{:x =  (<expr> (x +  (<decimal> 0.7) )) :})) {::} (<code> (<index> index =  (<n> 18)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x +  (<decimal> 0.01) )) :})) {::} (<code> (<index> index =  (<n> 44)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.0000001) )) :})) {::} (<code> (<index> index =  (<n> 42)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.8) )) :}))) {::} (<code> (<index> index =  (<n> 8)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  <  (<point> main[index])  +  (<decimal> 0.001) :{:x =  (<expr> (x -  (<decimal> 0.001) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  <  (<point> opposite[index])  +  (<ints> 0) :{:x =  (<expr> (x +  (<decimal> 0.2) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.2) )) :}) :}) {::} (<code> (<index> index =  (<n> 25)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.7) )) :})) {::} (<code> (<index> index =  (<n> 16)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.6) )) :})))) {::} (<code> (<index> index =  (<n> 42)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[:-index]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 1000) :{:x =  (<expr> (x +  (<decimal> 0.000001) )) :})) {::} (<code> (<index> index =  (<n> 28)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 1000) :{:x =  (<expr> (x -  (<decimal> 0.6) )) :})) {::} (<code> (<index> index =  (<n> 0)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.7) )) :}))) {::} (<code> (<index> index =  (<n> 48)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[:-index]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 500) :{:x =  (<expr> (x -  (<decimal> 0.9) )) :})) {::} (<code> (<index> index =  (<n> 49)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.0001) )) :}))) {::} (<code> (<index> index =  (<n> 28)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[:-index])) ) >  (<smaller> 50) :{:x =  (<expr> (x -  (<decimal> 0.3) )) :})) {::} (<code> (<index> index =  (<n> 34)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :})) {::} (<code> (<index> index =  (<n> 33)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x +  (<decimal> 0.2) )) :})) {::} (<code> (<index> index =  (<n> 38)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.0001) )) :}))))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9731515022373748, 0.9828570222478288]

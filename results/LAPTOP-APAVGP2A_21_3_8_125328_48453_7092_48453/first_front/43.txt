@@ -1,0 +1,22 @@
+Generation:
+14
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 19
+  n = 9
+  b = 2
+  c = main[25]
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 50:
+    x = (x + 1.0)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[10238, 13564, 43636, 13975, 78712, 71500, 417, 12839, 65741, 95755, 83644, 90486, 71527, 93970, 99086, 64171, 65175, 22585, 42936, 49259, 72767]
+Tree:
+None
+
+Fitness:
+[0.9759414225941423, 0.528515381258494]

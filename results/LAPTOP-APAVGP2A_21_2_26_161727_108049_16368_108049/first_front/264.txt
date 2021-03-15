@@ -1,0 +1,34 @@
+Generation:
+6
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 8
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 1000:
+    x = (x + 0.4)
+  index = 33
+  if main[index] < 1:
+    if opposite[index] < opposite[index] + 1.0:
+      x = (x + 0.6)
+  else:
+    if main[index] < main[index] + 2:
+      x = (x - 0.8)
+    else:
+      x = (x + 0.3)
+  index = 21
+  if opposite[index] > main[index]:
+    x = (x - 0.00001)
+  index = 40
+  if main[index] < main[index]:
+    x = (x - 0.001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[17146, 35584, 56771, 69337, 23606, 58148, 91634, 51584, 61727, 49403, 65844, 71688, 26447, 99024, 87538, 77229, 25192, 82967, 47604, 20630, 56754, 3114, 85942, 13277, 92050, 11824, 72829, 55595, 43576, 3193, 70774, 10436, 8194, 52589, 94930, 20863, 8380, 42732, 36036, 39334, 11656, 80222, 40165, 3037, 81633, 38137, 91757, 67044, 95464, 49120, 47638, 89705, 50604, 28610, 8970, 26550, 88885, 46696, 4912, 2715, 93130, 60804, 75695, 8604, 62368, 72529, 99482, 29052, 45212, 11540, 81223, 14379, 48377, 93689, 41381, 39006, 5474, 65230, 30419]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 8)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[:-index])) ) >  (<smaller> 1000) :{:x =  (<expr> (x +  (<decimal> 0.4) )) :})) {::} (<code> (<index> index =  (<n> 33)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  <  (<point> opposite[index])  +  (<decimal> 1.0) :{:x =  (<expr> (x +  (<decimal> 0.6) )) :}) :}else:{: (<compareInt> if  (<point> main[index])  <  (<point> main[index])  +  (<ints> 2) :{:x =  (<expr> (x -  (<decimal> 0.8) )) :}else:{:x =  (<expr> (x +  (<decimal> 0.3) )) :}) :}) {::} (<code> (<index> index =  (<n> 21)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :})) {::} (<code> (<index> index =  (<n> 40)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.001) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9982953334753889, 0.5229813381372888]

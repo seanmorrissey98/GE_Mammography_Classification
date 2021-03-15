@@ -1,0 +1,19 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 15
+  if main[index] + opposite[index] + sum(main[:-index]) - sum(main[-index:]) > main[index] + main[index] - main[index] - main[index] - opposite[index] + main[index] - opposite[index] + sum(main[-index:]) + sum(opposite[:-index]):
+    x = (x - 0.3)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[29438, 11268, 35155, 39864, 36880, 17967, 69901, 32078, 51326, 81279, 65951, 7597, 60389, 33545, 69330, 93116, 79192, 14868, 41235, 20456, 52834, 56639, 79580, 37756, 54997, 53680, 26216, 11160, 78980, 13464, 62585, 41596, 4899, 54564, 85925, 29173, 3231, 50552, 7869, 25392, 51828, 61484, 37256, 2151, 56126, 41389, 75278, 64465, 12923, 48416, 62094, 3931, 6487, 63452, 9566, 15851, 2608, 15691, 49903, 95494, 42925, 52940, 41979, 37080, 85482, 74476, 80228, 8381, 22600, 20293, 50895, 4176, 76891, 8413, 3394, 41172, 20523, 95453, 87961, 70703, 98644, 88195, 22969, 46307, 80963, 17101, 23112, 98349, 57277, 75246, 78679, 22436, 56282, 15722, 54703, 69857, 17768, 52428, 83758, 59323, 41222, 1606, 60627, 42072, 79467, 32325, 21385, 43573, 21869]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 15)) {::} (<if> if  (<data> (<combo> (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> opposite[index]))))   (<combine> +)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))   (<combine> -)   (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))))))   (<eval> >)   (<data> (<combo> (<data> (<combo> (<data> (<combo> (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> main[index]))))   (<combine> -)   (<data> (<combo> (<data> (<point> main[index]))   (<combine> -)   (<data> (<point> main[index]))))))   (<combine> -)   (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> +)   (<data> (<combo> (<data> (<point> main[index]))   (<combine> -)   (<data> (<point> opposite[index]))))))))   (<combine> +)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))   (<combine> +)   (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index])))))))) :{:x =  (<expr> (x -  (<decimal> 0.3) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9955252503728959, 0.5675733080802952]

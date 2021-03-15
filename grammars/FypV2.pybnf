@@ -1,0 +1,36 @@
+<p>::= <defp>{::}<callp>
+<defp> ::= def p():{:x = 0.0{::}<code>{::}return x:}
+<callp> ::= XXX_output_XXX = p()
+
+# These are used to define indexes in data
+<decimal> ::= 0.0000001| 0.000001 | 0.00001 | 0.0001 | 0.001 | 0.01 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0
+<smaller> ::= 50 | 100 | 500 | 1000 | 5000
+<larger> ::= 1000 | 5000 | 10000 
+<ints> ::= GE_RANGE:10
+<n> ::= GE_RANGE:51
+<index> ::= index = <n>
+
+# Potential Recursion of comparison
+<code> ::= <index>{::}<if> | <index>{::}<if>{::}<code> | <index>{::}<if>{::}<code>{::}<code> | <index>{::}<if>{::}<code>{::}<code>{::}<code>
+
+# If statements to fill out the trees
+<if> ::= <compareSum> | if <data> <eval> <data>:{:x = <expr>:} | if main[index] < 1:{:<compareDec>:}else:{:<compareInt>:}
+<compareDec> ::= if <point> > <point> + <decimal>:{:x = <expr>:} | if <point> < <point> + <decimal>:{:x = <expr>:}
+<compareInt> ::= if <point> > <point> + <ints>:{:x = <expr>:}else:{:x = <expr>:} | if <point> < <point> + <ints>:{:x = <expr>:}else:{:x = <expr>:}
+<compareSum> ::= if abs(<mainPartial> - <oppositePartial>) > <smaller>:{:x = <expr>:} | if abs(sum(main) - sum(opposite)) > <larger>:{:x = <expr>:}
+<data> ::= <n_avg> | <point> | <combo>
+<eval> ::= > | <
+<expr> ::= (x + <decimal>) | (x - <decimal>)
+
+<combo> ::= <data> <combine> <data>
+# Operation set
+<combine> ::= + | - 
+
+# Values of features for each breast
+<point> ::= main[index] | opposite[index]
+# Sumation of full or part of the lists
+<n_avg> ::= <mainPartial> | <oppositePartial>
+<mainPartial> ::= sum(main[-index:]) | sum(main[:-index])
+<oppositePartial> ::= sum(opposite[-index:]) | sum(opposite[:-index])
+<n_avg_total> ::= sum(main) | sum(opposite)
+

@@ -1,0 +1,22 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 44
+  n = 24
+  b = 33
+  c = main[b]
+  if c < opposite[b]:
+    x = (x - 0.8)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[23901, 40326, 30934, 56932, 72507, 34414, 25980, 55556, 22005, 96282, 39074, 48177, 81338, 15232, 19901, 88336, 88629, 62417, 27627, 37987, 50267, 73715, 51574, 99414, 95633, 36015, 23014, 88421]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 44)) {::} (<a> n =  (<n> 24)) {::} (<b> b =  (<n> 33)) {::} (<c> c =  (<data> (<point> main[b]))) {::} (<if> if c  (<eval> <)   (<data> (<point> opposite[b])) :{:x =  (<expr> (x -  (<const> 0.8) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.0, 0.5]

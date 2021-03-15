@@ -1,0 +1,22 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 22
+  if opposite[index] - main[index] - main[index] + opposite[index] + main[index] - main[index] + opposite[index] - opposite[index] - opposite[index] + opposite[index] < opposite[index] - opposite[index] - opposite[index] - sum(main[-index:]) - sum(opposite[:-index]) + sum(main[:-index]) + opposite[index]:
+    x = (x + 0.5)
+  index = 19
+  if sum(opposite[-index:]) - sum(opposite[:-index]) + opposite[index] + sum(opposite[-index:]) + opposite[index] < main[index] - sum(opposite[:-index]) + opposite[index]:
+    x = (x + 0.000001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[93526, 67142, 14049, 24547, 43847, 20167, 38372, 37072, 56307, 65677, 77182, 31142, 16301, 61087, 14952, 15166, 95579, 68822, 44136, 58193, 12203, 59677, 40004, 95663, 30905, 54335, 72247, 49777, 42586, 30482, 14255, 18093, 2465, 9376, 6204, 11958, 52707, 29690, 19031, 2948, 31526, 31445, 43506, 74469, 97910, 21296, 46784, 41224, 23386, 66183, 52955, 17244, 62301, 99688, 63037, 83186, 9389, 57571, 8363, 16270, 37114, 827, 30744, 26741, 34638, 43810, 55038, 50363, 31771, 19231, 56223, 25402, 49703, 83274, 64211, 98841, 12612, 92609, 71341, 66742, 77787, 56637, 67678, 62353, 86844, 53066, 57311, 76771, 24024, 29611, 60071, 44928, 64628, 93325, 4734, 85283, 14198, 36349, 82170, 18006, 36149, 57891, 27652, 30306, 6586, 28794, 70574, 77695, 55606, 68451, 26575, 58463, 12253, 93707, 37482, 46367, 30785, 73077, 77426, 29292, 93398, 67247, 24333, 98109, 5065, 75481, 17350, 46835, 52336, 21349, 13174, 45919, 57933, 75987, 28060, 28111, 4677, 79025, 14505, 50157, 64969, 56174, 16927, 54167, 14931, 56597, 63004, 77603, 91898, 49784, 32047, 46847, 65687, 82803, 65561, 6717, 7876, 9218, 96534, 73582, 22622, 81854, 79227, 3321, 41885, 44591, 92683, 50387, 21506, 31848, 94520, 95681, 41430, 90247, 84199, 45760, 51494, 51555, 15682, 20645, 71583, 38600, 97287, 83391, 9805, 16612, 8266, 86307, 30414, 28927, 39024, 76248, 26484, 3393, 45080, 48634, 34824, 43630, 95524, 58694, 47142, 59326, 90618, 27226, 17167]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 22)) {::} (<if> if  (<data> (<combo> (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<point> main[index]))   (<combine> -)   (<data> (<point> main[index]))))   (<combine> +)   (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> +)   (<data> (<point> main[index]))))))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> opposite[index]))))   (<combine> -)   (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<point> opposite[index]))))))   (<combine> +)   (<data> (<point> opposite[index]))))))   (<eval> <)   (<data> (<combo> (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<point> opposite[index]))))   (<combine> -)   (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> +)   (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))))   (<combine> +)   (<data> (<point> opposite[index])))))) :{:x =  (<expr> (x +  (<decimal> 0.5) )) :}) {::} (<code> (<index> index =  (<n> 19)) {::} (<if> if  (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> +)   (<data> (<point> opposite[index]))))   (<combine> +)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> +)   (<data> (<point> opposite[index]))))))))   (<eval> <)   (<data> (<combo> (<data> (<point> main[index]))   (<combine> -)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> +)   (<data> (<point> opposite[index])))))) :{:x =  (<expr> (x +  (<decimal> 0.000001) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.02247191011235955, 0.49762695217735226]

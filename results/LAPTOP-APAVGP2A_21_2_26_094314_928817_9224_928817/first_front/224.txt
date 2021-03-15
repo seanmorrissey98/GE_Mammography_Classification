@@ -1,0 +1,28 @@
+Generation:
+9
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 38
+  n = 5
+  b = 0
+  c = sum(main[:-index])
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.7)
+  index = 47
+  n = 17
+  b = 20
+  c = opposite[b] - opposite[44] / sum(main[-index:])
+  if c > sum(main[-index:]):
+    x = (x / 0.5)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[75473, 11215, 92649, 72138, 99896, 952, 83084, 8955, 44676, 15066, 40284, 12054, 72749, 540, 34257, 46227, 17916, 14986, 93792, 87489, 92459, 26922, 67949, 99293, 51122, 19891, 81296, 81150, 31577, 73987, 31228, 44401, 74481, 1843, 20219]
+Tree:
+None
+
+Fitness:
+[0.9927551672704027, 0.6224762989834096]

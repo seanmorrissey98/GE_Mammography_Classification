@@ -1,0 +1,19 @@
+Generation:
+6
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 48
+  if sum(opposite[:-index]) + sum(opposite[-index:]) + sum(opposite[-index:]) + sum(main[:-index]) > opposite[index] + sum(main[-index:]) - sum(opposite[:-index]) - sum(opposite[:-index]) + main[index] + opposite[index]:
+    x = (x + 1.0)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[77265, 52017, 12256, 61963, 66124, 48956, 76916, 89901, 15404, 79554, 13814, 1102, 41348, 50693, 3669, 63577, 77390, 33906, 34311, 83329, 95874, 4860, 17760, 14214, 17337, 33858, 7800, 71953, 23437, 95304, 78272, 39710, 84920, 9608, 52933, 68350, 32402, 10763, 78066, 98211, 74556, 33112, 223, 78725, 46740, 96881, 56015, 83423, 45537, 64075, 83794, 90551, 99294, 20246, 71214, 86985, 15351, 49107, 44339, 29395, 93995, 17119, 576, 86217, 70318, 99580, 8141, 9102, 11452, 55871, 15019, 62133, 2140, 21260, 45050, 96740, 78515, 35958, 25919, 59132, 91241, 41352, 56859, 4898, 28748, 70476, 12400, 68136, 12397, 249, 97447]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 48)) {::} (<if> if  (<data> (<combo> (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> +)   (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))))   (<combine> +)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> +)   (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))))))   (<eval> >)   (<data> (<combo> (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> +)   (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> -)   (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))))   (<combine> +)   (<data> (<point> main[index]))))   (<combine> +)   (<data> (<point> opposite[index])))))) :{:x =  (<expr> (x +  (<decimal> 1.0) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9919028340080972, 0.636756014705198]

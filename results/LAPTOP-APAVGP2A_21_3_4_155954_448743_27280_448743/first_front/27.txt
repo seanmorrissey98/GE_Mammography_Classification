@@ -1,0 +1,34 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 18
+  n = 44
+  b = 45
+  c = sum(opposite[:-index])
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x - 0.8)
+  index = 19
+  n = 36
+  b = 15
+  c = opposite[b]
+  if main[b] < main[b]:
+    x = (x * 0.2)
+  index = 18
+  n = 31
+  b = 46
+  c = opposite[b]
+  if opposite[b] < opposite[b]:
+    x = (x / 0.1)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[18847, 87408, 56931, 18518, 84157, 52956, 73933, 27766, 82610, 57203, 15840, 33714, 90722, 10920, 3263, 31905, 27308, 50160, 20610, 66954, 84730, 93171, 97140, 64495, 75162, 46017, 19540, 4628, 68406, 68456, 62305, 52640, 16414, 18469, 36939, 69952, 78688, 51017, 94419, 10992, 84168, 34360, 76729, 63228, 6193, 81031, 86256, 76225, 99710, 91031, 9101, 98551, 35449, 19829, 61429, 58507, 47882, 70463, 82975, 19818, 11334, 62421, 84709, 465, 75554, 19197, 15911, 93630, 66346, 40854, 92655, 9123, 4809, 69111, 202, 35755, 29534, 27596, 77594, 51992, 77932, 73206]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 18)) {::} (<a> n =  (<n> 44)) {::} (<b> b =  (<n> 45)) {::} (<c> c =  (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 1000) :{:x =  (<expr> (x -  (<const> 0.8) )) :})) {::} (<code> (<index> index =  (<n> 19)) {::} (<a> n =  (<n> 36)) {::} (<b> b =  (<n> 15)) {::} (<c> c =  (<data> (<point> opposite[b]))) {::} (<if> if  (<data> (<point> main[b]))   (<eval> <)   (<data> (<point> main[b])) :{:x =  (<expr> (x *  (<const> 0.2) )) :})) {::} (<code> (<index> index =  (<n> 18)) {::} (<a> n =  (<n> 31)) {::} (<b> b =  (<n> 46)) {::} (<c> c =  (<data> (<point> opposite[b]))) {::} (<if> if  (<data> (<point> opposite[b]))   (<eval> <)   (<data> (<point> opposite[b])) :{:x =  (<expr> (x /  (<const> 0.1) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.10112359550561797, 0.4785911094513172]

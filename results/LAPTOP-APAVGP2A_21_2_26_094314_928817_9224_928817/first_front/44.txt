@@ -1,0 +1,34 @@
+Generation:
+9
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 9
+  n = 28
+  b = 13
+  c = opposite[b] - main[b]
+  if opposite[9] < opposite[12] + 1:
+    x = (x * 0.7)
+  index = 37
+  n = 37
+  b = 0
+  c = sum(main[-index:])
+  if abs(sum(main) - sum(opposite)) > 10000:
+    x = (x - 0.1)
+  index = 40
+  n = 12
+  b = 6
+  c = main[b]
+  if opposite[b] < opposite[b]:
+    x = (x * 0.2)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[51881, 24483, 43138, 3633, 92643, 71144, 18535, 21719, 16665, 74129, 85076, 67380, 49979, 10621, 6355, 67935, 27743, 77784, 41585, 93127, 86681, 14190, 3662, 88740, 44007, 57816, 47862, 54876, 81152, 8647, 1401, 62567, 41738, 61534, 60206, 74252, 71279, 44801, 67651, 92704, 95583, 32320, 77629, 57126, 34075, 98062, 44876, 95186, 52009, 31920, 43375, 28960, 89477, 947, 94327, 17149, 10753, 98150, 45741, 81204, 92088, 67800, 78780, 57273, 96634, 10020, 95856, 21835, 95947, 4025, 15706, 2335, 7257, 36924, 64775, 69167, 66510, 7451, 61483, 4013, 83841, 57815, 61726, 97731, 95167, 1103, 78895, 53084, 96252, 23372]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 9)) {::} (<a> n =  (<n> 28)) {::} (<b> b =  (<n> 13)) {::} (<c> c =  (<data> (<combo> (<data> (<point> opposite[b]))   (<combine> -)   (<data> (<point> main[b]))))) {::} (<if> if  (<point> opposite[ (<n> 9) ])  <  (<point> opposite[ (<n> 12) ])  +  (<d> 1) :{:x =  (<expr> (x *  (<const> 0.7) )) :}) {::} (<code> (<index> index =  (<n> 37)) {::} (<a> n =  (<n> 37)) {::} (<b> b =  (<n> 0)) {::} (<c> c =  (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 10000) :{:x =  (<expr> (x -  (<const> 0.1) )) :})) {::} (<code> (<index> index =  (<n> 40)) {::} (<a> n =  (<n> 12)) {::} (<b> b =  (<n> 6)) {::} (<c> c =  (<data> (<point> main[b]))) {::} (<if> if  (<data> (<point> opposite[b]))   (<eval> <)   (<data> (<point> opposite[b])) :{:x =  (<expr> (x *  (<const> 0.2) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9735776688685276, 0.9700545545153997]

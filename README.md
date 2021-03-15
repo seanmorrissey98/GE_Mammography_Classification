@@ -1,6 +1,6 @@
 # Machine Learning using Grammatical Evolution Project
 --------------
-#### Abstract
+## Abstract
 
 An approach to automating the detection of suspicious areas in mammograms
 through the development of a stage 1 computer aided detector using GE as its
@@ -24,8 +24,8 @@ accuracy which is achievable in terms of a true positive rate of identifying sus
 areas and on the contrary a reduced rate of false positives per segment of a
 mammogram.
 
-#### Features
+## Features
 
-#### How-to
+## How-to
 
-#### Results
+## Results

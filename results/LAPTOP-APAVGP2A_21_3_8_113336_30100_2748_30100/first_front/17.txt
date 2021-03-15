@@ -1,0 +1,28 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 20
+  n = 26
+  b = 0
+  c = opposite[b]
+  if opposite[b] + opposite[19] > main[41]:
+    x = (x / 0.5)
+  index = 5
+  n = 27
+  b = 32
+  c = opposite[b] - opposite[b]
+  if main[22] < main[b] + 1:
+    x = (x + 0.1)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[37532, 47641, 57681, 7009, 18413, 83944, 18985, 28707, 63164, 84084, 92409, 72410, 98544, 26856, 4088, 19096, 90025, 52099, 3821, 38685, 36794, 7353, 68321, 36030, 13680, 79018, 41152, 83004, 60473, 76066, 21777, 99223, 80973, 95713, 28816, 28802, 34141, 64199, 93896, 34243, 45034, 88951, 42758, 95110, 31923, 96635, 18800, 23697, 31027, 18953, 37405, 97347, 39831, 28388, 25159, 87438, 26264, 2216, 3966, 81871, 83993, 47575, 80354, 8530, 80177, 60127, 90771, 91397, 59403, 32389, 52250, 8780, 73169, 28395, 27987]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 20)) {::} (<a> n =  (<n> 26)) {::} (<b> b =  (<n> 0)) {::} (<c> c =  (<data> (<point> opposite[b]))) {::} (<if> if  (<data> (<combo> (<data> (<point> opposite[b]))   (<combine> +)   (<data> (<point> opposite[ (<n> 19) ]))))   (<eval> >)   (<data> (<point> main[ (<n> 41) ])) :{:x =  (<expr> (x /  (<const> 0.5) )) :}) {::} (<code> (<index> index =  (<n> 5)) {::} (<a> n =  (<n> 27)) {::} (<b> b =  (<n> 32)) {::} (<c> c =  (<data> (<combo> (<data> (<point> opposite[b]))   (<combine> -)   (<data> (<point> opposite[b]))))) {::} (<if> if  (<point> main[ (<n> 22) ])  <  (<point> main[b])  +  (<d> 1) :{:x =  (<expr> (x +  (<const> 0.1) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.0, 0.5]

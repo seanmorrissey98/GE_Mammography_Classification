@@ -1,0 +1,79 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 3
+  if opposite[index] > opposite[index]:
+    x = (x + 0.6)
+  index = 5
+  if main[index] < main[index]:
+    x = (x + 0.00001)
+  index = 18
+  if sum(opposite[:-index]) < sum(opposite[-index:]) + sum(main[-index:]) - main[index]:
+    x = (x + 0.01)
+  index = 16
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x - 0.9)
+  index = 44
+  if main[index] < sum(opposite[-index:]):
+    x = (x - 0.01)
+  index = 1
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.6)
+  index = 17
+  if main[index] > sum(opposite[:-index]):
+    x = (x + 0.6)
+  index = 36
+  if main[index] < 1:
+    if main[index] < main[index] + 0.0001:
+      x = (x - 0.01)
+  else:
+    if main[index] > opposite[index] + 1:
+      x = (x - 0.3)
+    else:
+      x = (x + 0.5)
+  index = 28
+  if main[index] < 1:
+    if main[index] < opposite[index] + 0.1:
+      x = (x - 0.000001)
+  else:
+    if opposite[index] > opposite[index] + 6:
+      x = (x - 0.001)
+    else:
+      x = (x + 0.8)
+  index = 49
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 1.0)
+  index = 15
+  if main[index] < 1:
+    if opposite[index] > opposite[index] + 0.1:
+      x = (x + 0.3)
+  else:
+    if main[index] < main[index] + 5:
+      x = (x + 0.6)
+    else:
+      x = (x + 0.7)
+  index = 10
+  if sum(main[-index:]) > main[index]:
+    x = (x - 1.0)
+  index = 34
+  if main[index] < 1:
+    if opposite[index] < opposite[index] + 0.4:
+      x = (x - 0.3)
+  else:
+    if opposite[index] > main[index] + 8:
+      x = (x + 0.00001)
+    else:
+      x = (x - 0.2)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[44813, 34208, 96615, 99207, 74310, 26068, 59032, 83199, 53180, 93130, 59065, 54804, 96395, 53912, 95756, 6788, 77548, 8833, 84100, 37137, 52372, 32580, 6448, 17746, 51586, 971, 18735, 90064, 60084, 19771, 78317, 777, 22103, 96033, 31833, 65633, 10600, 48828, 80927, 45262, 85908, 13948, 27746, 27015, 21559, 77128, 6260, 46245, 78836, 71752, 42040, 66090, 44311, 256, 18413, 52126, 71989, 75057, 3971, 41968, 80920, 10690, 56125, 55962, 16023, 16998, 45301, 65637, 16688, 74532, 92719, 89226, 89291, 72498, 14082, 3371, 40911, 71298, 1241, 50809, 79624, 9134, 32730, 3975, 96127, 73619, 55346, 92123, 36851, 60973, 29973, 41477, 64759, 25006, 89542, 21955, 78641, 85797, 44012, 11980, 36523, 83081, 15709, 17224, 92282, 5978, 9196, 94877, 89890, 30107, 98791, 5752, 54035, 9126, 83753, 1185, 24410, 28579, 30091, 64896, 95533, 41492, 42136, 43709, 12688, 71504, 71704, 99729, 91579, 32448, 28060, 58319, 79956, 2579, 25770]
+Tree:
+None
+
+Fitness:
+[0.11235955056179775, 0.4813302594473475]

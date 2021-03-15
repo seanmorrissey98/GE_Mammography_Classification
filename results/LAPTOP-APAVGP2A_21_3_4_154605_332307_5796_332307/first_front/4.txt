@@ -1,0 +1,31 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 6
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 50:
+    x = (x + 0.001)
+  index = 16
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x - 0.5)
+  index = 3
+  if main[index] < opposite[index]:
+    x = (x - 0.5)
+  index = 39
+  if opposite[index] > main[index]:
+    x = (x + 0.00001)
+  index = 48
+  if main[index] > main[index]:
+    x = (x - 0.8)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[50010, 80419, 16449, 70697, 11709, 44811, 88134, 53030, 4886, 80930, 49527, 16868, 48980, 94683, 15789, 20844, 71722, 33301, 45850, 24801, 7183, 28257, 62072, 16261, 56329, 81363, 44617, 56200, 49329, 56203, 30537, 84418, 90912, 61718, 51899, 52397, 60075, 51778, 34249, 22339, 85291, 14668, 67042, 96698, 49156, 16547, 13070, 5437, 85802, 25510, 28080, 10794, 65363, 87482, 84765, 91221, 39559, 50298, 66107, 62183, 75825, 97748, 55690, 18715, 6436, 62164, 71483, 84708, 2825, 55568, 44389, 95126, 35704, 26327, 3588, 86565, 72817, 43357, 40943, 77724, 12996]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 6)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[:-index]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 50) :{:x =  (<expr> (x +  (<decimal> 0.001) )) :})) {::} (<code> (<index> index =  (<n> 16)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 1000) :{:x =  (<expr> (x -  (<decimal> 0.5) )) :})) {::} (<code> (<index> index =  (<n> 3)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.5) )) :})) {::} (<code> (<index> index =  (<n> 39)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.00001) )) :})) {::} (<code> (<index> index =  (<n> 48)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.8) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.06179775280898876, 0.48876330979889376]

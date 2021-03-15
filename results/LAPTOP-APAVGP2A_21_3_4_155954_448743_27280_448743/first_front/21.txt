@@ -1,0 +1,22 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 11
+  n = 4
+  b = 8
+  c = sum(opposite[-index:]) + main[b] * opposite[b] - opposite[b] + opposite[b] * sum(main[:-index]) / sum(opposite[-index:])
+  if c < main[b] * main[b] + sum(opposite[-index:]) - sum(opposite[-index:]):
+    x = (x - 0.5)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[29784, 79587, 36282, 1656, 78777, 46291, 60955, 59120, 67919, 49219, 15367, 5261, 34963, 64283, 28237, 2598, 72032, 61061, 52208, 37353, 59726, 58410, 1523, 62726, 61964, 1424, 24237, 60057, 25929, 24268, 87926, 40061, 56891, 49505, 13844, 52347, 38244, 52461, 99849, 13776, 27607, 67553, 12810, 36593, 59924, 3208, 99076, 39742, 83407, 13094, 5983, 15525, 40186, 29564, 32189, 65624, 13485, 1500, 18947, 79881, 4938, 25965, 7897, 80400, 91894, 60718, 89065, 15680, 35451, 39196, 72771, 41019, 52118, 43598, 15895, 5725, 61620, 25804, 81100, 49843, 94568, 1702, 59129, 44362, 45823, 66980, 35505, 61999, 87458, 97372, 77663, 51728, 71857, 20542, 59374, 19365, 50058, 37708, 34622, 64579, 38031, 26124, 96212]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 11)) {::} (<a> n =  (<n> 4)) {::} (<b> b =  (<n> 8)) {::} (<c> c =  (<data> (<combo> (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> +)   (<data> (<combo> (<data> (<combo> (<data> (<point> main[b]))   (<combine> *)   (<data> (<point> opposite[b]))))   (<combine> -)   (<data> (<combo> (<data> (<point> opposite[b]))   (<combine> +)   (<data> (<point> opposite[b]))))))))   (<combine> *)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))   (<combine> /)   (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))))))) {::} (<if> if c  (<eval> <)   (<data> (<combo> (<data> (<combo> (<data> (<point> main[b]))   (<combine> *)   (<data> (<point> main[b]))))   (<combine> +)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> -)   (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:])))))))) :{:x =  (<expr> (x -  (<const> 0.5) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.0, 0.5]

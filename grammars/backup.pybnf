@@ -1,0 +1,28 @@
+<p>::= <defp>{::}<callp>
+<defp> ::= def p():{:x = 0.0{::}<code>{::}return x:}
+<callp> ::= XXX_output_XXX = p()
+
+# These are used to define indexes in data
+<a> ::= n = <n>
+<b> ::= b = <n>
+<c> ::= c = <data>
+<d> ::= GE_RANGE:10
+<n> ::= GE_RANGE:51
+
+# Potential Recursion of comparison
+<code> ::= <a>{::}<b>{::}<c>{::}<if> | <a>{::}<b>{::}<c>{::}<if>{::}<code> | <a>{::}<b>{::}<c>{::}<if>{::}<code>{::}<code> | <a>{::}<b>{::}<c>{::}<if>{::}<code>{::}<code>{::}<code>
+
+# If statements to fill out the trees
+<if> ::= if <data> <eval> <data>:{:x = <expr>:} | if c <eval> <data>:{:x = <expr>:} | if <point> > <point> + <d>:{:x = <expr>:} | if <point> < <point> + <d>:{:x = <expr>:}
+<data> ::= <n_avg> | <point> | <combo>
+<eval> ::= > | <
+<expr> ::= <const> | (x + <const>) | (x - <const>) | (x * <const>) | (x / <const>)
+<const> ::= 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0
+
+<combo> ::= <data> <combine> <data>
+# Operation set
+<combine> ::= + | - | * | /
+
+# Values of features for each breast
+<point> ::= main[b] | opposite[b] | main[<n>] | opposite[<n>]
+<n_avg> ::= sum(main[-n:])/n | sum(opposite[-n:])/n

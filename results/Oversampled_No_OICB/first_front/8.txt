@@ -1,0 +1,34 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 47
+  n = 1
+  b = 49
+  c = sum(opposite[:-index])
+  if opposite[b] < main[b] + 8:
+    x = 0.7
+  index = 44
+  n = 45
+  b = 6
+  c = opposite[35]
+  if c < sum(opposite[:-index]) - sum(main[:-index]):
+    x = (x * 0.5)
+  index = 19
+  n = 9
+  b = 25
+  c = main[b] + opposite[b]
+  if main[33] > opposite[b] + 3:
+    x = (x / 0.7)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[48967, 97482, 87449, 92037, 1824, 90992, 34605, 28669, 32070, 18276, 68812, 65073, 96875, 56697, 36910, 20498, 77199, 19378, 62294, 5824, 96194, 34132, 62363, 17181, 83855, 47858, 60175, 98975, 32955, 16305, 43799, 27767, 57521, 45624, 58201, 23173, 36549, 31721, 62399, 52444, 74109, 43900, 12608, 30523, 49508, 13598, 89434, 43675, 96858, 39138, 42414, 71154, 87816, 42484, 45683, 10697, 88904, 31913, 52072, 18825, 39081, 53184, 3839, 3926, 92392, 19737, 92574, 11052, 43091, 31442, 91425, 85011, 77027, 63626, 89357, 90067, 70428, 67031, 8854, 19391, 45513, 51520, 72164, 57800, 81736, 4058, 64597, 18663, 20018, 36789, 86910, 13258, 3990, 88711, 87405, 83394, 83529, 57370, 30152]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 47)) {::} (<a> n =  (<n> 1)) {::} (<b> b =  (<n> 49)) {::} (<c> c =  (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))) {::} (<if> if  (<point> opposite[b])  <  (<point> main[b])  +  (<d> 8) :{:x =  (<expr> (<const> 0.7)) :}) {::} (<code> (<index> index =  (<n> 44)) {::} (<a> n =  (<n> 45)) {::} (<b> b =  (<n> 6)) {::} (<c> c =  (<data> (<point> opposite[ (<n> 35) ]))) {::} (<if> if c  (<eval> <)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> -)   (<data> (<n_avg> (<mainPartial> sum(main[:-index])))))) :{:x =  (<expr> (x *  (<const> 0.5) )) :}) {::} (<code> (<index> index =  (<n> 19)) {::} (<a> n =  (<n> 9)) {::} (<b> b =  (<n> 25)) {::} (<c> c =  (<data> (<combo> (<data> (<point> main[b]))   (<combine> +)   (<data> (<point> opposite[b]))))) {::} (<if> if  (<point> main[ (<n> 33) ])  >  (<point> opposite[b])  +  (<d> 3) :{:x =  (<expr> (x /  (<const> 0.7) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[1.0, 0.5]

@@ -113,7 +113,6 @@ def dominates(individual1, individual2):
     if any([isnan(fit) for fit in individual1.fitness]):
         # Individual 1 is invalid.
         return False
-
     elif any([isnan(fit) for fit in individual2.fitness]):
         # Individual 2 is invalid.
         return True

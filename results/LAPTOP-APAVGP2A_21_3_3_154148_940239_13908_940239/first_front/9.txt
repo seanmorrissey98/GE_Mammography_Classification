@@ -1,0 +1,19 @@
+Generation:
+4
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 28
+  if opposite[index] + opposite[index] > opposite[index] + main[index]:
+    x = (x - 1.0)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[92333, 92975, 2392, 61516, 67858, 83440, 31436, 74222, 48172, 7855, 66104, 93454, 63351, 12424, 35786, 13932, 31996, 45781, 18796, 52468, 95854]
+Tree:
+None
+
+Fitness:
+[0.577928870292887, 0.5057138472185627]

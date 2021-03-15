@@ -1,0 +1,22 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 20
+  n = 41
+  b = 4
+  c = main[b] + opposite[b]
+  if main[b] - main[b] < opposite[b] + main[b]:
+    x = (x - 0.1)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[73846, 41135, 70752, 41434, 66786, 19366, 40294, 69145, 83273, 96426, 8447, 2960, 69023, 86725, 92495, 83525, 62082, 32159, 75487, 83332, 66760, 66661, 6980, 39908, 91625, 60577, 61607, 54772, 52344, 14878, 38209, 38281, 23669, 66690, 52040, 49380, 9611, 3773, 50790, 71773, 5053, 85782, 9442, 32857, 22508, 6786, 63504, 87585, 44873, 13159, 83758, 50575, 59310, 13372]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 20)) {::} (<a> n =  (<n> 41)) {::} (<b> b =  (<n> 4)) {::} (<c> c =  (<data> (<combo> (<data> (<point> main[b]))   (<combine> +)   (<data> (<point> opposite[b]))))) {::} (<if> if  (<data> (<combo> (<data> (<point> main[b]))   (<combine> -)   (<data> (<point> main[b]))))   (<eval> <)   (<data> (<combo> (<data> (<point> opposite[b]))   (<combine> +)   (<data> (<point> main[b])))) :{:x =  (<expr> (x -  (<const> 0.1) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.011235955056179775, 0.49920604347941155]

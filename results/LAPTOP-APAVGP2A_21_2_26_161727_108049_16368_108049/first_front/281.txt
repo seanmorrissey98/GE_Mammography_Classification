@@ -1,0 +1,19 @@
+Generation:
+6
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 48
+  if sum(opposite[:-index]) + sum(main[:-index]) < sum(opposite[-index:]) - main[index]:
+    x = (x + 0.9)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[2898, 74502, 95300, 84224, 1378, 81867, 23837, 92294, 84632, 67344, 16352, 56542, 68607, 36870, 46858, 86382, 85865, 25702, 96, 44772, 48232, 12361, 41257, 56103, 57631, 91254, 8826, 31790, 39172, 8794, 28153, 28551, 88192, 2552, 25345, 77584, 79689, 29440, 23530, 46270]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 48)) {::} (<if> if  (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))   (<combine> +)   (<data> (<n_avg> (<mainPartial> sum(main[:-index]))))))   (<eval> <)   (<data> (<combo> (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:]))))   (<combine> -)   (<data> (<point> main[index])))) :{:x =  (<expr> (x +  (<decimal> 0.9) )) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.9995738333688472, 0.5073934075566345]
