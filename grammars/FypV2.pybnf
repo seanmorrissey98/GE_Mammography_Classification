@@ -7,7 +7,7 @@
 <smaller> ::= 50 | 100 | 500 | 1000 | 5000
 <larger> ::= 1000 | 5000 | 10000 
 <ints> ::= GE_RANGE:10
-<n> ::= GE_RANGE:51
+<n> ::= GE_RANGE:52
 <index> ::= index = <n>
 
 # Potential Recursion of comparison
@@ -18,7 +18,7 @@
 <compareDec> ::= if <point> > <point> + <decimal>:{:x = <expr>:} | if <point> < <point> + <decimal>:{:x = <expr>:}
 <compareInt> ::= if <point> > <point> + <ints>:{:x = <expr>:}else:{:x = <expr>:} | if <point> < <point> + <ints>:{:x = <expr>:}else:{:x = <expr>:}
 <compareSum> ::= if abs(<mainPartial> - <oppositePartial>) > <smaller>:{:x = <expr>:} | if abs(sum(main) - sum(opposite)) > <larger>:{:x = <expr>:}
-<data> ::= <n_avg> | <point> | <combo>
+<data> ::= <n_avg> | <point> | <combo> | <average>
 <eval> ::= > | <
 <expr> ::= (x + <decimal>) | (x - <decimal>)
 
@@ -33,4 +33,5 @@
 <mainPartial> ::= sum(main[-index:]) | sum(main[:-index])
 <oppositePartial> ::= sum(opposite[-index:]) | sum(opposite[:-index])
 <n_avg_total> ::= sum(main) | sum(opposite)
+<average> ::= sum(main) / 52 | sum(opposite) / 52
 

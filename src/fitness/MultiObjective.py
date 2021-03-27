@@ -4,6 +4,8 @@ from itertools import count
 from fitness.base_ff_classes.base_ff import base_ff
 import pandas as pd
 from sklearn.metrics import roc_auc_score
+from random import uniform
+import random
 
 
 class MultiObjective(base_ff):
@@ -28,6 +30,8 @@ class MultiObjective(base_ff):
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
+        df.sort_values(by=['Label'], inplace=True)
+        df.to_csv('sortedMCC.csv')
 
         haralick_features = []
         for i in range(104):
@@ -61,7 +65,8 @@ class MultiObjective(base_ff):
             self.start = len(self.test) - round(len(data) * .20)
         p, d = ind.phenotype, {}
         n_points = len(data) # Number of data points available . . 4999
-        for i in range(self.start, n_points):
+        self.points = self.getPIRS()
+        for i in (self.points):
             main = []
             opposite = []
             for j in range(52):
@@ -75,11 +80,11 @@ class MultiObjective(base_ff):
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
             progOuts.sort()
-            if i == 1001:
-                print("Main: ",main)
-                print("Label: ",self.labels[i])
-                print("Progouts: ", progOuts[len(progOuts)-1])
-                print("Progouts position: ", len(progOuts)-1)
+            #if i == 1001:
+             #   print("Main: ",main)
+              #  print("Label: ",self.labels[i])
+               # print("Progouts: ", progOuts[len(progOuts)-1])
+                #print("Progouts position: ", len(progOuts)-1)
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
         initMid = progOuts[round(len(progOuts) / 2)]
@@ -156,11 +161,11 @@ class MultiObjective(base_ff):
         fp, fn = 0, 0
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
-                if self.labels[self.start+i] == 0:
+                if self.labels[self.points[i]] == 0:
                     # False Positive
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.start+i] == 1:
+                if self.labels[self.points[i]] == 1:
                     # False Negative
                     fn = fn + 1
         return (fp + fn) / len(progOuts)
@@ -170,13 +175,13 @@ class MultiObjective(base_ff):
         tn, fp = 0, 0
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                if self.labels[self.start+i] == 1:
+                if self.labels[self.points[i]] == 1:
                     # Correct guess increase true positive counter
                     tp = tp + 1
                 else:
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.start+i] == 1:
+                if self.labels[self.points[i]] == 1:
                     # Incorrect guess increase false negative counter
                     fn = fn + 1
                 else:
@@ -192,4 +197,33 @@ class MultiObjective(base_ff):
             else:  # Guessing suspicious area not present
                 predictions.append(0)
         #print("AUC: ", roc_auc_score(self.labels[self.start:n_points], predictions))
-        return roc_auc_score(self.labels[self.start:n_points], predictions)
+        return roc_auc_score(self.labels, predictions)
+
+    def getPIRS(self):
+        benign = self.labels.value_counts()[0]
+        malignant = self.labels.value_counts()[1]
+        total = benign + malignant
+
+        percentage_b = round(benign/total, 2)
+        percentage_m = round(malignant/total, 2)
+
+        percent_majority = round(uniform(percentage_m, percentage_b),2)
+        percent_minority = round(1 - percent_majority,2)
+
+        majority_datapoints = round(total * percent_majority)
+        minority_datapoints = round(total * percent_minority)
+
+        if majority_datapoints + minority_datapoints == 5000:
+            majority_datapoints = majority_datapoints - 1
+
+        datapoints = []
+        start = 0
+        end = int(benign)+int(malignant)
+
+        for i in range(int(majority_datapoints)):
+            datapoints.append(round(uniform(start, int(benign))))
+
+        for i in range(int(minority_datapoints)):
+            datapoints.append(round(uniform(int(benign),end-1)))
+        random.shuffle(datapoints)
+        return datapoints
