@@ -191,13 +191,16 @@ class MultiObjective(base_ff):
 
     def getRocAucScore(self, progOuts, n_points):
         predictions = []
+        ordered_labels = []
+        for j in (self.points):
+            ordered_labels.append(self.labels[j])
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 predictions.append(1)
             else:  # Guessing suspicious area not present
                 predictions.append(0)
         #print("AUC: ", roc_auc_score(self.labels[self.start:n_points], predictions))
-        return roc_auc_score(self.labels, predictions)
+        return roc_auc_score(ordered_labels, predictions)
 
     def getPIRS(self):
         benign = self.labels.value_counts()[0]
