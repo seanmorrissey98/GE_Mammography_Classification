@@ -13,7 +13,7 @@ MIN_INIT_TREE_DEPTH:    6
 MAX_TREE_DEPTH:         20
 MUTATION:               int_flip_per_codon
 MUTATION_PROBABILITY:  	0.20
-POPULATION_SIZE:        100
+POPULATION_SIZE:        50
 FITNESS_FUNCTION:       MultiObjective
 SELECTION:              nsga2_selection
 TOURNAMENT_SIZE:        5
@@ -22,3 +22,5 @@ MAX_WRAPS:		        3
 ERROR_METRIC:           f1_score
 REPLACEMENT:		    nsga2_replacement
 DATASET_TRAIN:          None
+MULTICORE:              True
+CORES:                  4

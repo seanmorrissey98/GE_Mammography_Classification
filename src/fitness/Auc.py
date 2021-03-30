@@ -13,13 +13,8 @@ class Auc(base_ff):
         # Initialise base fitness function class.
         super().__init__()
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
-        #max_size = df['Label'].value_counts().max()
-        #lst = [df]
-        #for class_index, group in df.groupby('Label'):
-        #    lst.append(group.sample(max_size-len(group), replace=True))
-        #df = pd.concat(lst)
         haralick_features = []
         for i in range(104):
             feature = "x"+ str(i)
@@ -32,6 +27,7 @@ class Auc(base_ff):
         self.n_vars = len(self.data)
         self.counter = 0
         self.training_test = True
+        self.best = 0
     
     def evaluate(self, ind, **kwargs):
         # ind.phenotype will be a string, including function definitions etc.
@@ -57,6 +53,10 @@ class Auc(base_ff):
 
         p, d = ind.phenotype, {}
         n_points = len(data)  # Number of data points available . . 4999
+        predictions = []
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        df = pd.read_csv(in_file)
+        labels = df['Label']
         for i in range(self.start, n_points):
             main = []
             opposite = []
@@ -70,7 +70,11 @@ class Auc(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-            progOuts.sort()
+            #progOuts.sort()
+            if d["XXX_output_XXX"] > 0:  # Guessing suspicious area present
+                predictions.append(1)
+            else:  # Guessing suspicious area not present
+                predictions.append(0)
 
         initMid = progOuts[round(len(progOuts) / 2)]
         max = progOuts[len(progOuts) - 1]
@@ -78,9 +82,11 @@ class Auc(base_ff):
         initMin = (initMid + min) / 2
         initMax = (initMid + max) / 2
         error = 1
-        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        #self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         self.counter += 1
-        print("Counter: ", self.counter)
+        # print("Counter: ", self.counter)
+        print("new: ", self.getRocAucScore(progOuts, n_points))
+        print("old: ",  roc_auc_score(labels[self.start:n_points], predictions))
         return self.getRocAucScore(progOuts, n_points)
 
     def getBoundary(self, lowerLimit, upperLimit, mid, bottom, top, errorCount, progOutput):

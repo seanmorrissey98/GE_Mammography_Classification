@@ -27,7 +27,7 @@ class MonteCarlo(base_ff):
         self.fitness_functions = [dummyfit, dummyfit]
         self.default_fitness = [-1, -1]
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         #df.sort_values(by=['Label'], inplace=True)
         #df.to_csv('sortedMCC.csv')
@@ -43,12 +43,12 @@ class MonteCarlo(base_ff):
         self.n_vars = len(self.data)
         self.training_test = True
         self.counter = 0
-        self.first = True
-        self.first2 = True
-        self.tp_ind = []
-        self.auc_ind = []
-        self.avga_ind = []
-        self.mcc_ind = []
+        #self.first = True
+        #self.first2 = True
+        #self.tp_ind = []
+        #self.auc_ind = []
+        #self.avga_ind = []
+        #self.mcc_ind = []
 
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
@@ -83,7 +83,7 @@ class MonteCarlo(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-            progOuts.sort()
+            #progOuts.sort()
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
         initMid = progOuts[round(len(progOuts) / 2)]
@@ -94,17 +94,17 @@ class MonteCarlo(base_ff):
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
-        self.tp_ind.append(self.getTruePositiveRate(progOuts))
-        self.auc_ind.append(self.getRocAucScore(progOuts))
-        self.avga_ind.append(self.getAVGA(progOuts))
-        self.mcc_ind.append(self.getMCC(progOuts))
-        self.counter = self.counter + 1
-        print(self.counter)
-        if self.counter == 50:
-            self.monteCarlo(self.tp_ind, "TP")
-            self.monteCarlo(self.auc_ind, "AUC")
-            self.monteCarlo(self.avga_ind, "AVGA")
-            self.monteCarlo(self.mcc_ind, "MCC")
+        #self.tp_ind.append(self.getTruePositiveRate(progOuts))
+        #self.auc_ind.append(self.getRocAucScore(progOuts))
+        #self.avga_ind.append(self.getAVGA(progOuts))
+        #self.mcc_ind.append(self.getMCC(progOuts))
+        # self.counter = self.counter + 1
+        # print(self.counter)
+        #if self.counter == 50:
+        #    self.monteCarlo(self.tp_ind, "TP")
+        #    self.monteCarlo(self.auc_ind, "AUC")
+        #    self.monteCarlo(self.avga_ind, "AVGA")
+        #    self.monteCarlo(self.mcc_ind, "MCC")
         return fitness
 
     @staticmethod

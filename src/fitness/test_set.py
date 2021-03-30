@@ -26,9 +26,9 @@ class test_set():
         progOuts = []
         self.start = 0
         self.boundary = 0
-        n_points = len(self.test) - round(len(data) * .20) 
+        self.n_points = len(self.test) - round(len(data) * .20) 
         
-        for i in range(self.start, n_points):
+        for i in range(self.start, self.n_points):
             main = []
             opposite = []
             for j in range(52):
@@ -37,7 +37,6 @@ class test_set():
 
             # Append output of classifier to program output list
             progOuts.append(self.exec(main, opposite))
-            progOuts.sort()
         
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
@@ -49,7 +48,7 @@ class test_set():
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         self.getTruePositiveRate(progOuts)
-        return self.getRocAucScore(progOuts, n_points)
+        return self.getRocAucScore(progOuts)
 
 
     def getBoundary(self, lowerLimit, upperLimit, mid, bottom, top, errorCount, progOutput):
@@ -97,93 +96,152 @@ class test_set():
     """
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
-                if self.labels[self.start+i] == 0:
+                if training_labels[i] == 0:
                     # False Positive
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.start+i] == 1:
+                if training_labels[i] == 1:
                     # False Negative
                     fn = fn + 1
         return (fp + fn) / len(progOuts)
 
-    def getTruePositiveRate(self, progOuts):
-        tp, fn = 0, 0
-        for i in range(len(progOuts)):
-            guess = 0
-            if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                guess = 1
-                if self.labels[self.start+i] == 1:
-                    # Correct guess increase true positive counter
-                    tp = tp + 1
-            else:  # Guessing suspicious area not present
-                guess = 0
-                if self.labels[self.start+i] == 1:
-                    # Incorrect guess increase false negative counter
-                    fn = fn + 1
-            print("Guess=",guess)
-            print("Actual=",self.labels[self.start+i])
-        fn = 1 if tp + fn == 0 else fn
-        print("True Positives: ", tp)
-        print("False Negatives: ", fn)
-        print("TP Rate: ", tp/(tp+fn))
-        return tp/(tp+fn)
-
-    def getRocAucScore(self, progOuts, n_points):
+    def getRocAucScore(self, progOuts):
         predictions = []
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 predictions.append(1)
             else:  # Guessing suspicious area not present
                 predictions.append(0)
-        print("AUC: ", roc_auc_score(self.labels[self.start:n_points], predictions))
-        return roc_auc_score(self.labels[self.start:n_points], predictions)
+        print("AUC: ", roc_auc_score(training_labels, predictions))
+        return roc_auc_score(training_labels, predictions)
+
+    def getTruePositiveRate(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        fn = 1 if tp + fn == 0 else fn
+        print("TP: ", tp/(tp+fn))
+        return tp/(tp+fn)
+
 
     def exec(self, main, opposite):
         x = 0.0
-        index = 50
+        index = 39
+        if main[index] < opposite[index]:
+            x = (x - 0.001)
+        index = 24
         if main[index] < 1:
-            if opposite[index] < opposite[index] + 0.00001:
-                x = (x + 0.0001)
+            if main[index] < main[index] + 0.000001:
+                x = (x - 0.001)
         else:
-            if main[index] < main[index] + 7:
-                x = (x + 0.00001)
+            if opposite[index] > main[index] + 1:
+                x = (x - 0.7)
             else:
-                    x = (x - 0.7)
-        index = 27
-        if abs(sum(main) - sum(opposite)) > 5000:
-                x = (x + 0.0001)
-        index = 21
+                x = (x - 0.9)
+        index = 40
+        if abs(sum(main) - sum(opposite)) > 1000:
+            x = (x - 0.0001)
+        index = 10
+        if opposite[index] > sum(opposite[-index:]):
+            x = (x - 0.8)
+        index = 14
+        if abs(sum(main) - sum(opposite)) > 10000:
+            x = (x - 0.7)
+        index = 7
         if main[index] < 1:
-            if opposite[index] > main[index] + 0.0000001:
-                x = (x + 0.0000001)
-        else:
-            if main[index] > opposite[index] + 8:
+            if main[index] > main[index] + 0.8:
                 x = (x - 0.1)
-            else:
-                x = (x + 0.4)
-        index = 15
-        if main[index] < 1:
-            if main[index] < main[index] + 0.5:
-                x = (x - 0.00001)
         else:
-            if main[index] < main[index] + 4:
-                x = (x + 0.001)
-            else:
-                x = (x + 0.4)
-        index = 4
-        if abs(sum(main[-index:]) - sum(opposite[-index:])) > 100:
-            x = (x - 0.9)
-        index = 4
-        if main[index] < 1:
-            if opposite[index] > main[index] + 1.0:
-                x = (x + 0.6)
-        else:
-            if main[index] < main[index] + 2:
+            if opposite[index] < opposite[index] + 2:
                 x = (x - 0.0000001)
             else:
+                x = (x + 0.8)
+        index = 30
+        if main[index] < 1:
+            if opposite[index] < opposite[index] + 0.001:
+                x = (x + 0.1)
+        else:
+            if main[index] < opposite[index] + 1:
+                x = (x + 0.4)
+            else:
+                x = (x + 0.7)
+        index = 26
+        if opposite[index] > main[index]:
+            x = (x + 0.001)
+        index = 5
+        if main[index] < 1:
+            if main[index] < main[index] + 0.9:
                 x = (x - 0.01)
+        else:
+            if opposite[index] < main[index] + 1:
+                x = (x - 0.0000001)
+            else:
+                x = (x - 0.3)
+        index = 42
+        if sum(main) / 52 < main[index]:
+            x = (x + 0.0000001)
+        index = 2
+        if opposite[index] > main[index]:
+            x = (x - 0.001)
+        index = 39
+        if main[index] > main[index]:
+            x = (x + 0.7)
+        index = 30
+        if sum(main) / 52 + sum(main) / 52 > opposite[index]:
+            x = (x + 0.4)
+        index = 3
+        if main[index] < 1:
+            if opposite[index] > opposite[index] + 0.7:
+                x = (x - 0.4)
+        else:
+            if main[index] > opposite[index] + 1:
+                x = (x - 0.2)
+            else:
+                x = (x - 0.8)
+        index = 26
+        if abs(sum(main[:-index]) - sum(opposite[-index:])) > 5000:
+            x = (x - 0.4)
+        index = 50
+        if abs(sum(main[:-index]) - sum(opposite[:-index])) > 1000:
+            x = (x - 0.00001)
+        index = 34
+        if opposite[index] > main[index]:
+            x = (x - 0.001)
+        index = 0
+        if abs(sum(main) - sum(opposite)) > 5000:
+            x = (x - 0.3)
+        index = 46
+        if sum(main) / 52 - opposite[index] < main[index] - main[index]:
+            x = (x - 0.000001)
+        index = 7
+        if abs(sum(main) - sum(opposite)) > 1000:
+            x = (x - 0.7)
+        index = 46
+        if main[index] > main[index]:
+            x = (x - 0.4)
+        index = 44
+        if sum(main) / 52 > opposite[index]:
+            x = (x + 0.000001)
+        index = 0
+        if sum(opposite) / 52 < sum(main) / 52:
+            x = (x + 0.5)
         return x
 
 t = test_set()

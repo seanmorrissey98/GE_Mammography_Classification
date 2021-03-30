@@ -8,9 +8,9 @@ MAX_GENOME_LENGTH:      500
 GRAMMAR_FILE:           mammography.pybnf
 INITIALISATION:         PI_grow
 INVALID_SELECTION:      False
-MAX_INIT_TREE_DEPTH:    17
+MAX_INIT_TREE_DEPTH:    11
 MIN_INIT_TREE_DEPTH:    6
-MAX_TREE_DEPTH:         20
+MAX_TREE_DEPTH:         17
 MUTATION:               int_flip_per_codon
 MUTATION_PROBABILITY:  	0.20
 POPULATION_SIZE:        50
