@@ -261,7 +261,6 @@ class MonteCarlo(base_ff):
 
     def monteCarlo(self, population, text):
         file = open("MonteCarlo.txt", "a")
-        print("Population: ", population)
         average = self.getAverage(population)
         variance = self.getVariance(population, average)
         standardDeviation = self.getSDeviation(variance)
