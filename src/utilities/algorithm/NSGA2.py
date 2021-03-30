@@ -109,7 +109,14 @@ def dominates(individual1, individual2):
     :returns: :obj:`True` if indvidual_1 dominates indvidual_2,
               :obj:`False` otherwise.
     """
-
+    print("IND 1: ",individual1.fitness)
+    print("IND 2: ",individual2.fitness)
+    if isinstance(individual1.fitness, float):
+        if isnan(individual1.fitness):
+            return False
+    elif isinstance(individual2.fitness, float):
+        if isnan(individual2.fitness):
+            return True
     if any([isnan(fit) for fit in individual1.fitness]):
         # Individual 1 is invalid.
         return False

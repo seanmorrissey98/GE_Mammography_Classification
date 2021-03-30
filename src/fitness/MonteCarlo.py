@@ -1,9 +1,11 @@
 from itertools import count
+from typing import Counter
 from fitness.base_ff_classes.base_ff import base_ff
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 import math
 from random import uniform
+import numpy as np
 
 class MonteCarlo(base_ff):
     """
@@ -25,7 +27,7 @@ class MonteCarlo(base_ff):
         self.fitness_functions = [dummyfit, dummyfit]
         self.default_fitness = [-1, -1]
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_prepared.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
         df = pd.read_csv(in_file)
         #df.sort_values(by=['Label'], inplace=True)
         #df.to_csv('sortedMCC.csv')
@@ -43,6 +45,10 @@ class MonteCarlo(base_ff):
         self.counter = 0
         self.first = True
         self.first2 = True
+        self.tp_ind = []
+        self.auc_ind = []
+        self.avga_ind = []
+        self.mcc_ind = []
 
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
@@ -62,12 +68,14 @@ class MonteCarlo(base_ff):
             self.start = len(self.test) - round(len(data) * .20)
         p, d = ind.phenotype, {}
         self.n_points = len(data) # Number of data points available . . 4999
+        training_attributes = data[self.start:self.n_points]
+        #training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(self.start, self.n_points):
             main = []
             opposite = []
             for j in range(52):
-                main.append(data["x"+str(j)][i])
-                opposite.append(data["x"+str(j+52)][i])
+                main.append(training_attributes["x"+str(j)][i])
+                opposite.append(training_attributes["x"+str(j+52)][i])
             d["main"] = main
             d["opposite"] = opposite
             d['n_points'] = len(d['main'])
@@ -86,8 +94,17 @@ class MonteCarlo(base_ff):
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
+        self.tp_ind.append(self.getTruePositiveRate(progOuts))
+        self.auc_ind.append(self.getRocAucScore(progOuts))
+        self.avga_ind.append(self.getAVGA(progOuts))
+        self.mcc_ind.append(self.getMCC(progOuts))
         self.counter = self.counter + 1
-        #print("Counter: ", self.counter)
+        print(self.counter)
+        if self.counter == 50:
+            self.monteCarlo(self.tp_ind, "TP")
+            self.monteCarlo(self.auc_ind, "AUC")
+            self.monteCarlo(self.avga_ind, "AVGA")
+            self.monteCarlo(self.mcc_ind, "MCC")
         return fitness
 
     @staticmethod
@@ -196,15 +213,16 @@ class MonteCarlo(base_ff):
     def getAVGA(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                if self.labels[self.start+i] == 1:
+                if training_labels[i] == 1:
                     # Correct guess increase true positive counter
                     tp = tp + 1
                 else:
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.start+i] == 1:
+                if training_labels[i] == 1:
                     # Incorrect guess increase false negative counter
                     fn = fn + 1
                 else:
@@ -214,15 +232,16 @@ class MonteCarlo(base_ff):
     def getMCC(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                if self.labels[self.start+i] == 1:
+                if training_labels[i] == 1:
                     # Correct guess increase true positive counter
                     tp = tp + 1
                 else:
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.start+i] == 1:
+                if training_labels[i] == 1:
                     # Incorrect guess increase false negative counter
                     fn = fn + 1
                 else:
@@ -239,3 +258,29 @@ class MonteCarlo(base_ff):
             file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
         file.write("\n\n\n")
         file.close()
+
+    def monteCarlo(self, population, text):
+        file = open("MonteCarlo.txt", "a")
+        print("Population: ", population)
+        average = self.getAverage(population)
+        variance = self.getVariance(population, average)
+        standardDeviation = self.getSDeviation(variance)
+        file.write(text + " variance: " + str(variance) + "\n")
+        file.write(text + " standard deviation: " + str(standardDeviation) + "\n")
+        file.write(text + " average: " + str(average) + "\n\n")
+        return
+
+    def getVariance(self, population, average):
+        sum = 0
+        for i in population:
+            sum = sum + ((i - average) * (i - average))
+        return sum / len(population)
+
+    def getSDeviation(self, variance):
+        return math.sqrt(variance)
+
+    def getAverage(self, population):
+        sum = 0
+        for i in population:
+            sum = sum + i
+        return sum / len(population)
