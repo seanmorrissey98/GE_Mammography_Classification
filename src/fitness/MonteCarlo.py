@@ -29,8 +29,8 @@ class MonteCarlo(base_ff):
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
-        #df.sort_values(by=['Label'], inplace=True)
-        #df.to_csv('sortedMCC.csv')
+        df.sort_values(by=['Label'], inplace=True)
+        df.to_csv('sortedMCC.csv')
 
         haralick_features = []
         for i in range(104):
@@ -61,16 +61,18 @@ class MonteCarlo(base_ff):
             # Set training datasets.
             data = self.training
             self.start = round(len(data) * .20)
+            self.n_points = len(data)
 
         elif dist == "test":
             # Set test datasets.
             data = self.test
-            self.start = len(self.test) - round(len(data) * .20)
+            self.start = 0
+            self.n_points = round(len(data) * .20)
         p, d = ind.phenotype, {}
-        self.n_points = len(data) # Number of data points available . . 4999
-        training_attributes = data[self.start:self.n_points]
+        training_attributes = data#[self.start:self.n_points]
         #training_labels = self.labels[self.start:self.n_points].values.tolist()
-        for i in range(self.start, self.n_points):
+        self.points = self.getPIRS()
+        for i in (self.points):
             main = []
             opposite = []
             for j in range(52):
@@ -168,7 +170,7 @@ class MonteCarlo(base_ff):
     """
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
                 if training_labels[i] == 0:
@@ -182,7 +184,7 @@ class MonteCarlo(base_ff):
 
     def getRocAucScore(self, progOuts):
         predictions = []
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 predictions.append(1)
@@ -193,7 +195,7 @@ class MonteCarlo(base_ff):
     def getTruePositiveRate(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -213,7 +215,7 @@ class MonteCarlo(base_ff):
     def getAVGA(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -232,7 +234,7 @@ class MonteCarlo(base_ff):
     def getMCC(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -283,3 +285,36 @@ class MonteCarlo(base_ff):
         for i in population:
             sum = sum + i
         return sum / len(population)
+
+    def getPIRS(self):
+        benign = self.labels.value_counts()[0]
+        malignant = self.labels.value_counts()[1]
+        total = benign + malignant
+
+        percentage_b = round(benign/total, 2)
+        percentage_m = round(malignant/total, 2)
+
+        percent_majority = round(uniform(percentage_m, percentage_b),2)
+        percent_minority = round(1 - percent_majority,2)
+
+        majority_datapoints = round(total * percent_majority)
+        minority_datapoints = round(total * percent_minority)
+
+        if majority_datapoints + minority_datapoints == 5000:
+            majority_datapoints = majority_datapoints -1
+
+        datapoints = []
+        start = 0
+        end = int(benign)+int(malignant)
+
+        for i in range(int(majority_datapoints)):
+            datapoints.append(round(uniform(start, int(benign))))
+
+        for i in range(int(minority_datapoints)):
+            datapoints.append(round(uniform(int(benign),end-1)))
+
+        self.correctLabels = []
+        for i in datapoints:
+            # print("I: " + str(i) + "vs label: " + str(self.labels[i]))
+            self.correctLabels.append(self.labels[i])
+        return datapoints
