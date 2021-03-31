@@ -6,7 +6,6 @@ class test_set():
     def __init__(self):
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
-        df = df.sample(frac=1).reset_index(drop=True)
 
         haralick_features = []
         for i in range(104):
@@ -47,6 +46,12 @@ class test_set():
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        print("Progouts 0: ", progOuts[0])
+        print("Progouts 1: ", progOuts[1])
+        print("Progouts 2: ", progOuts[2])
+        print("Boundary: ", self.boundary)
         self.getTruePositiveRate(progOuts)
         return self.getRocAucScore(progOuts)
 
@@ -143,106 +148,11 @@ class test_set():
 
     def exec(self, main, opposite):
         x = 0.0
-        index = 39
-        if main[index] < opposite[index]:
-            x = (x - 0.001)
-        index = 24
-        if main[index] < 1:
-            if main[index] < main[index] + 0.000001:
-                x = (x - 0.001)
-        else:
-            if opposite[index] > main[index] + 1:
-                x = (x - 0.7)
-            else:
-                x = (x - 0.9)
-        index = 40
-        if abs(sum(main) - sum(opposite)) > 1000:
-            x = (x - 0.0001)
-        index = 10
-        if opposite[index] > sum(opposite[-index:]):
-            x = (x - 0.8)
-        index = 14
-        if abs(sum(main) - sum(opposite)) > 10000:
-            x = (x - 0.7)
-        index = 7
-        if main[index] < 1:
-            if main[index] > main[index] + 0.8:
-                x = (x - 0.1)
-        else:
-            if opposite[index] < opposite[index] + 2:
-                x = (x - 0.0000001)
-            else:
-                x = (x + 0.8)
-        index = 30
-        if main[index] < 1:
-            if opposite[index] < opposite[index] + 0.001:
-                x = (x + 0.1)
-        else:
-            if main[index] < opposite[index] + 1:
-                x = (x + 0.4)
-            else:
-                x = (x + 0.7)
-        index = 26
-        if opposite[index] > main[index]:
-            x = (x + 0.001)
-        index = 5
-        if main[index] < 1:
-            if main[index] < main[index] + 0.9:
-                x = (x - 0.01)
-        else:
-            if opposite[index] < main[index] + 1:
-                x = (x - 0.0000001)
-            else:
-                x = (x - 0.3)
-        index = 42
-        if sum(main) / 52 < main[index]:
-            x = (x + 0.0000001)
-        index = 2
-        if opposite[index] > main[index]:
-            x = (x - 0.001)
-        index = 39
-        if main[index] > main[index]:
-            x = (x + 0.7)
-        index = 30
-        if sum(main) / 52 + sum(main) / 52 > opposite[index]:
-            x = (x + 0.4)
-        index = 3
-        if main[index] < 1:
-            if opposite[index] > opposite[index] + 0.7:
-                x = (x - 0.4)
-        else:
-            if main[index] > opposite[index] + 1:
-                x = (x - 0.2)
-            else:
-                x = (x - 0.8)
-        index = 26
-        if abs(sum(main[:-index]) - sum(opposite[-index:])) > 5000:
-            x = (x - 0.4)
-        index = 50
-        if abs(sum(main[:-index]) - sum(opposite[:-index])) > 1000:
-            x = (x - 0.00001)
-        index = 34
-        if opposite[index] > main[index]:
-            x = (x - 0.001)
-        index = 0
-        if abs(sum(main) - sum(opposite)) > 5000:
-            x = (x - 0.3)
-        index = 46
-        if sum(main) / 52 - opposite[index] < main[index] - main[index]:
-            x = (x - 0.000001)
-        index = 7
-        if abs(sum(main) - sum(opposite)) > 1000:
-            x = (x - 0.7)
-        index = 46
-        if main[index] > main[index]:
-            x = (x - 0.4)
-        index = 44
-        if sum(main) / 52 > opposite[index]:
-            x = (x + 0.000001)
-        index = 0
-        if sum(opposite) / 52 < sum(main) / 52:
+        index = 22
+        if abs(sum(main[-index:]) - sum(opposite[-index:])) > 1000:
             x = (x + 0.5)
         return x
+
 
 t = test_set()
 t.evaluate()
