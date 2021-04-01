@@ -1,5 +1,10 @@
+from itertools import count
+from typing import Counter
 import pandas as pd
 from sklearn.metrics import roc_auc_score
+import math
+from random import uniform
+import numpy as np
 
 class test_set():
 
@@ -22,10 +27,14 @@ class test_set():
         # inside an empty dict for safety.
 
         data = self.test
-        progOuts = []
         self.start = 0
-        self.boundary = 0
-        self.n_points = len(self.test) - round(len(data) * .20) 
+        self.n_points = round(len(data) * .20)
+        self.points = list(range(0, self.n_points))
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        df = pd.read_csv(in_file)
+        self.labels = df['Label']
+        self.correctLabels = self.labels[0:self.n_points].values.tolist()
+        progOuts = []
         
         for i in range(self.start, self.n_points):
             main = []
@@ -46,8 +55,6 @@ class test_set():
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         print("Progouts 0: ", progOuts[0])
         print("Progouts 1: ", progOuts[1])
         print("Progouts 2: ", progOuts[2])
@@ -55,6 +62,21 @@ class test_set():
         self.getTruePositiveRate(progOuts)
         return self.getRocAucScore(progOuts)
 
+    @staticmethod
+    def value(fitness_vector, objective_index):
+        """
+        This is a static method required by NSGA-II for sorting populations
+        based on a given fitness function, or for returning a given index of a
+        population based on a given fitness function.
+
+        :param fitness_vector: A vector/list of fitnesses.
+        :param objective_index: The index of the desired fitness.
+        :return: The fitness at the objective index of the fitness vecror.
+        """
+        if not isinstance(fitness_vector, list):
+            return float("inf")
+
+        return fitness_vector[objective_index]
 
     def getBoundary(self, lowerLimit, upperLimit, mid, bottom, top, errorCount, progOutput):
         # Calculate the classification error for mid, top and bottom boundaries
@@ -101,7 +123,7 @@ class test_set():
     """
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
                 if training_labels[i] == 0:
@@ -115,7 +137,7 @@ class test_set():
 
     def getRocAucScore(self, progOuts):
         predictions = []
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 predictions.append(1)
@@ -127,7 +149,7 @@ class test_set():
     def getTruePositiveRate(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -145,12 +167,139 @@ class test_set():
         print("TP: ", tp/(tp+fn))
         return tp/(tp+fn)
 
+    def getFalsePositiveRate(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        fn = 1 if tp + fn == 0 else fn
+        return -(fp/(fp+tn))
+
+    def getAVGA(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        return 0.5 * (tp/(tp+fn) + tn/(tn+fp))
+
+    def getMCC(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        numerator = ((tp * tn) - (fp * fn))
+        denominator = math.sqrt((tp+fp)*(tp+tn)*(fp+fn)*(tn+fn))
+        return numerator / denominator
+
+    def writeToFile(self, predictions, message, tofile):
+        file = open(tofile, "a")
+        file.write("Boundary = " + str(self.boundary)+"\n")
+        file.write(str(message) + "\n")
+        for i in range(len(predictions)):
+            file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
+        file.write("\n\n\n")
+        file.close()
+
+    def monteCarlo(self, population, text):
+        file = open("MonteCarlo.txt", "a")
+        average = self.getAverage(population)
+        variance = self.getVariance(population, average)
+        standardDeviation = self.getSDeviation(variance)
+        file.write(text + " variance: " + str(variance) + "\n")
+        file.write(text + " standard deviation: " + str(standardDeviation) + "\n")
+        file.write(text + " average: " + str(average) + "\n\n")
+        return
+
+    def getVariance(self, population, average):
+        sum = 0
+        for i in population:
+            sum = sum + ((i - average) * (i - average))
+        return sum / len(population)
+
+    def getSDeviation(self, variance):
+        return math.sqrt(variance)
+
+    def getAverage(self, population):
+        sum = 0
+        for i in population:
+            sum = sum + i
+        return sum / len(population)
+
+    def getPIRS(self):
+        benign = self.labels.value_counts()[0]
+        malignant = self.labels.value_counts()[1]
+        total = benign + malignant
+
+        percentage_b = round(benign/total, 2)
+        percentage_m = round(malignant/total, 2)
+
+        percent_majority = round(uniform(percentage_m, percentage_b),2)
+        percent_minority = round(1 - percent_majority,2)
+
+        majority_datapoints = round(total * percent_majority)
+        minority_datapoints = round(total * percent_minority)
+
+        if majority_datapoints + minority_datapoints == 5000:
+            majority_datapoints = majority_datapoints -1
+
+        datapoints = []
+        start = 0
+        end = int(benign)+int(malignant)
+
+        for i in range(int(majority_datapoints)):
+            datapoints.append(round(uniform(start, int(benign))))
+
+        for i in range(int(minority_datapoints)):
+            datapoints.append(round(uniform(int(benign),end-1)))
+
+        self.correctLabels = []
+        for i in datapoints:
+            # print("I: " + str(i) + "vs label: " + str(self.labels[i]))
+            self.correctLabels.append(self.labels[i])
+        return datapoints
+
 
     def exec(self, main, opposite):
         x = 0.0
-        index = 22
-        if abs(sum(main[-index:]) - sum(opposite[-index:])) > 1000:
-            x = (x + 0.5)
+        index = 18
+        if abs(sum(main) - sum(opposite)) > 5000:
+            x = (x + 0.6)
         return x
 
 
