@@ -62,16 +62,21 @@ class MonteCarlo(base_ff):
             data = self.training
             self.start = round(len(data) * .20)
             self.n_points = len(data)
+            self.points = self.getPIRS()
 
         elif dist == "test":
             # Set test datasets.
             data = self.test
             self.start = 0
             self.n_points = round(len(data) * .20)
+            self.points = list(range(0, self.n_points))
+            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+            df = pd.read_csv(in_file)
+            self.labels = df['Label']
+            self.correctLabels = self.labels[0:self.n_points].values.tolist()
         p, d = ind.phenotype, {}
         training_attributes = data#[self.start:self.n_points]
         #training_labels = self.labels[self.start:self.n_points].values.tolist()
-        self.points = self.getPIRS()
         for i in (self.points):
             main = []
             opposite = []
@@ -211,6 +216,26 @@ class MonteCarlo(base_ff):
                     tn = tn + 1
         fn = 1 if tp + fn == 0 else fn
         return tp/(tp+fn)
+
+    def getFalsePositiveRate(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        fn = 1 if tp + fn == 0 else fn
+        return -(fp/(fp+tn))
 
     def getAVGA(self, progOuts):
         tp, fn = 0, 0
