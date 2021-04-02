@@ -6,6 +6,7 @@ from sklearn.metrics import roc_auc_score
 import math
 from random import uniform
 import numpy as np
+import time
 
 class MonteCarlo(base_ff):
     """
@@ -26,6 +27,9 @@ class MonteCarlo(base_ff):
         dummyfit.maximise = True
         self.fitness_functions = [dummyfit, dummyfit]
         self.default_fitness = [-1, -1]
+        t = time.localtime()
+        current_time = time.strftime("%H-%M-%S", t)
+        self.filename = current_time + ".txt"
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
@@ -49,6 +53,8 @@ class MonteCarlo(base_ff):
         #self.auc_ind = []
         #self.avga_ind = []
         #self.mcc_ind = []
+        self.test1 = 0
+        self.test2 = 0
 
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
@@ -66,6 +72,8 @@ class MonteCarlo(base_ff):
 
         elif dist == "test":
             # Set test datasets.
+            print("BEST TP = ", self.test1)
+            print("BEST AUC = ", self.test2)
             data = self.test
             self.start = 0
             self.n_points = round(len(data) * .20)
@@ -112,6 +120,7 @@ class MonteCarlo(base_ff):
         #    self.monteCarlo(self.auc_ind, "AUC")
         #    self.monteCarlo(self.avga_ind, "AVGA")
         #    self.monteCarlo(self.mcc_ind, "MCC")
+        self.getTestScore(p,d, fitness)
         return fitness
 
     @staticmethod
@@ -343,3 +352,50 @@ class MonteCarlo(base_ff):
             # print("I: " + str(i) + "vs label: " + str(self.labels[i]))
             self.correctLabels.append(self.labels[i])
         return datapoints
+
+    def getTestScore(self, p, d, fitness):
+        data = self.test
+        self.start = 0
+        self.n_points = round(len(data) * .20)
+        self.points = list(range(0, self.n_points))
+        progOuts = []
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        df = pd.read_csv(in_file)
+        self.labels = df['Label']
+        self.correctLabels = self.labels[0:self.n_points].values.tolist()
+        training_attributes = data#[self.start:self.n_points]
+        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        for i in (self.points):
+            main = []
+            opposite = []
+            for j in range(52):
+                main.append(training_attributes["x"+str(j)][i])
+                opposite.append(training_attributes["x"+str(j+52)][i])
+            d["main"] = main
+            d["opposite"] = opposite
+            d['n_points'] = len(d['main'])
+
+            exec(p, d)
+            progOuts.append(d["XXX_output_XXX"])
+        initMid = progOuts[round(len(progOuts) / 2)]
+        max = progOuts[len(progOuts) - 1]
+        min = progOuts[0]
+        initMin = (initMid + min) / 2
+        initMax = (initMid + max) / 2
+        error = 1
+        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        tp = self.getTruePositiveRate(progOuts) 
+        auc = self.getRocAucScore(progOuts)
+        if tp > self.test1 and auc > self.test2:
+            self.test1 = tp
+            self.test2 = auc
+            self.writeClassifier(p, fitness)
+
+    def writeClassifier(self, p, fitness):
+        file = open(self.filename, "a")
+        file.write("Training fitness: " + str(fitness) +"\n")
+        file.write("Test TPR: " + str(self.test1) +"\n")
+        file.write("Test AUC: " + str(self.test2) + "\n")
+        file.write(p)
+        file.write("\n\n\n")
+        file.close()
