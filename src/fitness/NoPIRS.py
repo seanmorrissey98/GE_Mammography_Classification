@@ -31,7 +31,7 @@ class NoPIRS(base_ff):
         current_time = time.strftime("%H-%M-%S", t)
         self.filename = current_time + ".txt"
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
         df = pd.read_csv(in_file)
         #df.sort_values(by=['Label'], inplace=True)
         #df.to_csv('sortedMCC.csv')
@@ -69,6 +69,9 @@ class NoPIRS(base_ff):
             self.start = round(len(data) * .20)
             self.n_points = len(data)
             self.points = self.getPIRS()
+            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
+            df = pd.read_csv(in_file)
+            self.labels = df['Label']
 
         elif dist == "test":
             # Set test datasets.
@@ -76,11 +79,11 @@ class NoPIRS(base_ff):
             print("BEST AUC = ", self.test2)
             data = self.test
             self.start = 0
-            self.n_points = round(len(data) * .20)
-            self.points = list(range(0, self.n_points))
             in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
+            self.n_points = round(len(self.labels) * .20)
+            self.points = list(range(0, self.n_points))
             self.correctLabels = self.labels[0:self.n_points].values.tolist()
         p, d = ind.phenotype, {}
         training_attributes = data#[self.start:self.n_points]
@@ -356,12 +359,12 @@ class NoPIRS(base_ff):
     def getTestScore(self, p, d, fitness):
         data = self.test
         self.start = 0
-        self.n_points = round(len(data) * .20)
-        self.points = list(range(0, self.n_points))
         progOuts = []
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         self.labels = df['Label']
+        self.n_points = round(len(self.labels) * .20)
+        self.points = list(range(0, self.n_points))
         self.correctLabels = self.labels[0:self.n_points].values.tolist()
         training_attributes = data#[self.start:self.n_points]
         #training_labels = self.labels[self.start:self.n_points].values.tolist()
