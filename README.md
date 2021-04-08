@@ -90,12 +90,19 @@ Two boundary determination techniques were implemeted as part of this project to
 ###### Static Boundaries
 Static boundaries are continuous boundaries which stay the same for all individuals throughout a run in GP. Typically, static boundaries are set to zero (zero threshold). However, there are potential pitfalls to static boundaries. Firstly, they can potentially introduce bias as the determination of a good static boundary may require expertise. Also, “individuals will take some time to move in the direction of the zero boundary” when using a static boundary. An example of a static boundary showing potential bias can be seen in the image below.
 
-![Static Boundaries](/images/zero threshold.png)
+![Static Boundaries](/images/zeroThreshold.png)
 ###### Optimised Individual Class Boundaries
 OICB’s goal is to find the most optimal boundary for each individual. Due to OICB determining boundaries for each individual, it reduces the bias introduced from static boundaries as no matter how high or low program output is for a classifier, OICB works to find the optimal boundary. OICB calculates the optimal boundary by ordering the program output of an individual and recursively searching smaller ranges of the output while testing different boundary values. The error metric which OICB uses to decide whether one boundary is better than another is Classification Error.
 
 ![OICB](/images/OICB.png)
 #### Monte Carlo Simulation
+Monte Carlo simulation is a simulation technique which uses repeated random sampling, statistical analysis and modelling and can be used to mimic operations of a complex systems or mathematical operations. The use of a Monte Carlo simulation in this paper is to validate whether the fitness functions mentioned above were behaving correctly. This is done by generating a large number of individuals for the initial generation’s population and gathering statistical results on the populations fitness. A Monte Carlo Simulation is completed on each of the four fitness functions, MCC, AVGA, TPR and AUC in parallel, with each individual generated for the initial population being evaluated on all four of the fitness functions. The statistics gathered during Monte Carlo Simulations can be seen in the images below.
+
+![Population Variance](/images/VARIANCE.png)
+
+![Standard Deviation](/images/DEVIATION.png)
+
+![Population Average](/images/AVERAGE.png)
 
 ## Results
 A subset of the results achieved throughout this projectcan be found in the _GE_Mammography_Classification/results_ folder. Please note that more results can be made available through request.
