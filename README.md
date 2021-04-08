@@ -24,8 +24,6 @@ accuracy which is achievable in terms of a true positive rate of identifying sus
 areas and on the contrary a reduced rate of false positives per segment of a
 mammogram.
 
-## Features
-
 ## How-to
 To run the program, first change directory to the source directory.
 ```
@@ -38,4 +36,21 @@ python ponyge.py --parameters filename.txt
 Statistics such as the `generation`, `average tree size`, etc., along with either the average fitness when using a *Single Objective Optimisation* parameter file or a list of the pareto fronts when using a *Multi-Objective Optimisation* parameter file are printed to the terminal at the end of each generation.
 
 The results of each run are updated at each generation and can be found in the _GE_Mammography_Classification/results_ folder.
+
+## Features
+#### Grammar
+The grammars for this project can be found in the _GE_Mammography_Classification/grammars_ folder. The primary grammar file used throughout this project was *FypV2.pybnf*. The non-terminal set for the grammar is what will build out the derivation trees of individuals as it contains recursive elements. It does this through a recursive amount of if statements. The if statements can select and combine Haralick features and using logical operators compare them against other Haralick features.
+
+#### Parameters
+The parameter files for this project can be found in the _GE_Mammography_Classification/parameters_ folder. The primary parameter files used throughout this project were *single.txt* and *multi.txt*. The difference between these two parameter files are that *single.txt* is for use in *Single Objective Optimisation* and uses **generational** for _replacement_ and **tournament** for _selection_. On the other hand, *multi.txt* is for use in *Multi-Objective Optimisation* and uses **NSGA 2 replacement** and **NSGA 2 selection**.
+
+#### Fitness Functions
+
+#### Sampling
+
+#### Boundary Determination
+
+#### Monte Carlo Simulation
+
 ## Results
+A subset of the results achieved throughout this projectcan be found in the _GE_Mammography_Classification/results_ folder. Please note that more results can be made available through request.
