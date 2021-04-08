@@ -45,7 +45,27 @@ The grammars for this project can be found in the _GE_Mammography_Classification
 The parameter files for this project can be found in the _GE_Mammography_Classification/parameters_ folder. The primary parameter files used throughout this project were *single.txt* and *multi.txt*. The difference between these two parameter files are that *single.txt* is for use in *Single Objective Optimisation* and uses **generational** for _replacement_ and **tournament** for _selection_. On the other hand, *multi.txt* is for use in *Multi-Objective Optimisation* and uses **NSGA 2 replacement** and **NSGA 2 selection**.
 
 #### Fitness Functions
+Four fitness functions were implemented as part of this project:
+* True Positive Rate (TPR)
+* Area under the curve of receiver operating characteristics (AUC)
+* Matthews Correlation Coefficient (MCC)
+* Average Accuracy (AVG)
 
+###### True Positive Rate
+The first fitness function taken into consideration was the true positive rate also known as Sensitivity i.e., the number of correctly identified suspicious areas per segment. The equation for the TPR can be seen in the image below.
+![True Positive Rate](/images/TPR.png)
+
+###### True Positive Rate
+The second fitness function taken into consideration needed to combine aspects of both the true positive rate and false positive rate and so the AUC of ROC curve was considered. This method is a “single scalar value that measures the overall performance of a binary classifier”. The true positive rate is plotted on the y axis, with the false positive rate plotted on the x axis. An example of a plot of an AUC can be seen in the image below.
+![True Positive Rate](/images/AUC.png)
+
+###### Matthews Correlation Coefficient
+The third fitness function taken into consideration was the Matthews Correlation Coefficient which is a common fitness function in machine learning for the use in binary classification problems. This fitness function calculates correlation coefficient between the actual and the predicted classifications. Unlike the TPR, the MCC takes into account true positives, true negatives, false positives and false negatives.The equation for the MCC can be seen in the image below.
+![True Positive Rate](/images/MCC.png)
+
+###### Average Accuracy
+The final fitness function taken into consideration was Average Accuracy (AVGA) also known as Balanced Accuracy. The equation for AVGA works by adding the TPR (sensitivity) and the specificity (true negative rate) together and dividing it by 2 or multiplying it by 0.5 to get a value in the range [0, 1]. The equation for the AVGA can be seen in the image below.
+![True Positive Rate](/images/AVGA.png)
 #### Sampling
 
 #### Boundary Determination
