@@ -1,0 +1,381 @@
+Training fitness: 0.5
+Test TPR: 0.6153846153846154
+Test AUC: 0.5553509965580725
+def p():
+  x = 0.0
+  index = 18
+  if sum(main) / 52 < sum(opposite) / 52:
+    x = (x - 0.2)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.49376225296888027
+Test TPR: 0.05128205128205128
+Test AUC: 0.5110728674724513
+def p():
+  x = 0.0
+  index = 24
+  if opposite[index] > sum(main) / 52:
+    x = (x + 0.01)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5
+Test TPR: 0.48717948717948717
+Test AUC: 0.4699164865658102
+def p():
+  x = 0.0
+  index = 38
+  if main[index] > opposite[index]:
+    x = (x - 0.0000001)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5422156889380503
+Test TPR: 0.7692307692307693
+Test AUC: 0.6114624189546146
+def p():
+  x = 0.0
+  index = 29
+  if opposite[index] > main[index]:
+    x = (x - 0.00001)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.4864613476643241
+Test TPR: 0.05128205128205128
+Test AUC: 0.5001467488460205
+def p():
+  x = 0.0
+  index = 7
+  if sum(main) / 52 < opposite[index]:
+    x = (x + 0.6)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.42954290089391367
+Test TPR: 0.5641025641025641
+Test AUC: 0.5151418127484725
+def p():
+  x = 0.0
+  index = 27
+  if main[index] < opposite[index]:
+    x = (x - 1.0)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.4946129188543615
+Test TPR: 0.5641025641025641
+Test AUC: 0.5167026868379626
+def p():
+  x = 0.0
+  index = 44
+  if opposite[index] > main[index]:
+    x = (x - 0.4)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.49037159524458773
+Test TPR: 0.6153846153846154
+Test AUC: 0.5647162410950133
+def p():
+  x = 0.0
+  index = 21
+  if sum(opposite) / 52 < sum(main) / 52:
+    x = (x + 0.4)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5
+Test TPR: 0.5897435897435898
+Test AUC: 0.5513754369113371
+def p():
+  x = 0.0
+  index = 19
+  if opposite[index] < main[index]:
+    x = (x + 0.00001)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.49855222337125127
+Test TPR: 0.6153846153846154
+Test AUC: 0.5647162410950133
+def p():
+  x = 0.0
+  index = 32
+  if main[index] < 1:
+    if main[index] > main[index] + 0.4:
+      x = (x - 0.9)
+  else:
+    if main[index] > main[index] + 2:
+      x = (x - 0.4)
+    else:
+      x = (x - 0.4)
+  index = 50
+  if sum(opposite) / 52 < sum(main) / 52:
+    x = (x + 0.8)
+  index = 20
+  if sum(main) / 52 < sum(opposite) / 52:
+    x = (x + 0.0000001)
+  index = 8
+  if sum(main) / 52 < main[index]:
+    x = (x + 0.0000001)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5929513240303264
+Test TPR: 0.7435897435897436
+Test AUC: 0.5825128738760372
+def p():
+  x = 0.0
+  index = 2
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.7)
+  index = 2
+  if opposite[index] < sum(opposite) / 52:
+    x = (x + 0.8)
+  index = 15
+  if main[index] > main[index]:
+    x = (x - 0.2)
+  index = 16
+  if opposite[index] < main[index]:
+    x = (x + 0.2)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5267256553023435
+Test TPR: 0.7435897435897436
+Test AUC: 0.5939592838656315
+def p():
+  x = 0.0
+  index = 15
+  if main[index] < 1:
+    if opposite[index] < main[index] + 0.6:
+      x = (x + 0.00001)
+  else:
+    if main[index] < main[index] + 8:
+      x = (x - 0.00001)
+    else:
+      x = (x + 0.4)
+  index = 4
+  if opposite[index] < sum(main) / 52:
+    x = (x + 0.000001)
+  index = 21
+  if opposite[index] > main[index]:
+    x = (x - 0.9)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.49572025052192065
+Test TPR: 0.7435897435897436
+Test AUC: 0.5705461725232797
+def p():
+  x = 0.0
+  index = 44
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.8)
+  index = 36
+  if main[index] < sum(opposite) / 52:
+    x = (x - 0.6)
+  index = 11
+  if opposite[index] > sum(opposite) / 52:
+    x = (x - 0.00001)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.4998972884141331
+Test TPR: 0.8717948717948718
+Test AUC: 0.5987486325675712
+def p():
+  x = 0.0
+  index = 39
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.7)
+  index = 17
+  if main[index] < 1:
+    if main[index] < opposite[index] + 0.0000001:
+      x = (x - 0.0000001)
+  else:
+    if main[index] < opposite[index] + 9:
+      x = (x + 0.4)
+    else:
+      x = (x + 0.1)
+  index = 5
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x - 0.000001)
+  index = 5
+  if main[index] > main[index]:
+    x = (x + 0.1)
+  index = 4
+  if opposite[index] < sum(opposite) / 52:
+    x = (x + 0.4)
+  index = 48
+  if sum(opposite) / 52 < sum(main) / 52:
+    x = (x + 0.9)
+  index = 9
+  if opposite[index] + sum(opposite) / 52 > main[index]:
+    x = (x + 0.1)
+  index = 25
+  if opposite[index] < sum(main[-index:]):
+    x = (x - 1.0)
+  index = 35
+  if sum(opposite) / 52 < opposite[index]:
+    x = (x + 0.7)
+  index = 46
+  if sum(main) / 52 > main[index]:
+    x = (x - 0.0000001)
+  index = 39
+  if sum(opposite) / 52 > sum(opposite) / 52:
+    x = (x - 0.5)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5
+Test TPR: 0.8717948717948718
+Test AUC: 0.5836601830358334
+def p():
+  x = 0.0
+  index = 14
+  if main[index] < 1:
+    if opposite[index] > opposite[index] + 0.0000001:
+      x = (x - 0.3)
+  else:
+    if opposite[index] < main[index] + 5:
+      x = (x - 0.0000001)
+    else:
+      x = (x - 0.01)
+  index = 41
+  if sum(opposite) / 52 > sum(main[-index:]) + sum(opposite[:-index]):
+    x = (x + 0.00001)
+  index = 46
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.1)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5
+Test TPR: 0.8974358974358975
+Test AUC: 0.6022039008511433
+def p():
+  x = 0.0
+  index = 44
+  if main[index] < 1:
+    if main[index] < main[index] + 0.3:
+      x = (x - 0.0000001)
+  else:
+    if main[index] < main[index] + 2:
+      x = (x + 0.0000001)
+    else:
+      x = (x - 0.001)
+  index = 47
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.2)
+  index = 51
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 500:
+    x = (x + 1.0)
+  index = 18
+  if main[index] < 1:
+    if main[index] > opposite[index] + 0.0001:
+      x = (x + 0.0000001)
+  else:
+    if opposite[index] > main[index] + 7:
+      x = (x + 0.00001)
+    else:
+      x = (x + 0.5)
+  index = 12
+  if main[index] < 1:
+    if opposite[index] < opposite[index] + 0.6:
+      x = (x - 0.5)
+  else:
+    if main[index] < opposite[index] + 1:
+      x = (x - 0.9)
+    else:
+      x = (x - 0.7)
+  index = 35
+  if sum(main) / 52 < sum(main[:-index]):
+    x = (x - 0.001)
+  index = 33
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.5)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5
+Test TPR: 0.9743589743589743
+Test AUC: 0.5881160116331812
+def p():
+  x = 0.0
+  index = 10
+  if opposite[index] > sum(main[-index:]):
+    x = (x - 0.1)
+  index = 32
+  if sum(main) / 52 + sum(opposite) / 52 > sum(main) / 52:
+    x = (x + 1.0)
+  index = 22
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.1)
+  index = 0
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x + 0.001)
+  index = 22
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 1000:
+    x = (x + 0.6)
+  return x
+XXX_output_XXX = p()
+
+
+Training fitness: 0.5320179300408229
+Test TPR: 0.46153846153846156
+Test AUC: 0.5320179300408229
+def p():
+  x = 0.0
+  index = 0
+  if main[index] < 1:
+    if opposite[index] < main[index] + 0.001:
+      x = (x + 0.6)
+  else:
+    if main[index] < main[index] + 8:
+      x = (x + 0.0001)
+    else:
+      x = (x - 0.9)
+  index = 37
+  if sum(main) / 52 > sum(main[:-index]):
+    x = (x - 0.6)
+  index = 51
+  if sum(opposite[:-index]) > opposite[index]:
+    x = (x + 0.000001)
+  index = 49
+  if sum(main[-index:]) > sum(main) / 52:
+    x = (x - 0.7)
+  index = 27
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.6)
+  index = 35
+  if sum(opposite) / 52 < main[index]:
+    x = (x + 0.00001)
+  index = 36
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.0001)
+  index = 37
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 5000:
+    x = (x - 0.8)
+  return x
+XXX_output_XXX = p()
+
+
