@@ -83,9 +83,18 @@ Oversampling aims to reduce the class imbalance by increasing the number of indi
 PIRS differs from oversampling as the size of the dataset remains the same as the original dataset and so does not increase the training time and computational cost / requirements which over sampling introduces due to a larger dataset. PIRS works by varying the number of instances of each class a classifier is trained with from the original dataset. This way each classifier in the population is trained on varying ratios of the minority to majority class.
 
 #### Boundary Determination
-Four fitness functions were implemented as part of this project:
-* True Positive Rate (TPR)
-* Area under the curve of receiver operating characteristics (AUC)
+Two boundary determination techniques were implemeted as part of this project to reduce bias and optimise results:
+* Static Boundaries
+* Optimised Individual Class Boundaries (OICB)
+
+###### Static Boundaries
+Static boundaries are continuous boundaries which stay the same for all individuals throughout a run in GP. Typically, static boundaries are set to zero (zero threshold). However, there are potential pitfalls to static boundaries. Firstly, they can potentially introduce bias as the determination of a good static boundary may require expertise. Also, “individuals will take some time to move in the direction of the zero boundary” when using a static boundary. An example of a static boundary showing potential bias can be seen in the image below.
+
+![Static Boundaries](/images/zero threshold.png)
+###### Optimised Individual Class Boundaries
+OICB’s goal is to find the most optimal boundary for each individual. Due to OICB determining boundaries for each individual, it reduces the bias introduced from static boundaries as no matter how high or low program output is for a classifier, OICB works to find the optimal boundary. OICB calculates the optimal boundary by ordering the program output of an individual and recursively searching smaller ranges of the output while testing different boundary values. The error metric which OICB uses to decide whether one boundary is better than another is Classification Error.
+
+![OICB](/images/OICB.png)
 #### Monte Carlo Simulation
 
 ## Results
