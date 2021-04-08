@@ -1,0 +1,28 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 47
+  if main[index] < 1:
+    if main[index] > main[index] + 1.0:
+      x = (x - 0.9)
+  else:
+    if opposite[index] > opposite[index] + 7:
+      x = (x - 0.8)
+    else:
+      x = (x - 0.01)
+  index = 24
+  if sum(main) / 52 - opposite[index] > sum(opposite) / 52 + sum(opposite) / 52:
+    x = (x + 1.0)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[54053, 1358, 47557, 16289, 6472, 7700, 63616, 73500, 99779, 56519, 52254, 35649, 76883, 64424, 23023, 76803, 98487, 94398, 54517, 5240, 7181, 97999, 85124, 9470, 41810, 12527, 76123, 68634, 70876, 89311, 24049, 37314, 39519, 9651, 7998, 62247, 14971, 62219, 55286, 60931, 10013, 38595, 94427, 30080, 16361, 24330, 73904, 24936, 37166, 4501, 77160, 89641, 48049, 89966, 17985, 8550, 7223, 10543, 89410, 96144, 46376, 98109, 19278]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 47)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> main[index])  >  (<point> main[index])  +  (<decimal> 1.0) :{:x =  (<expr> (x -  (<decimal> 0.9) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  >  (<point> opposite[index])  +  (<ints> 7) :{:x =  (<expr> (x -  (<decimal> 0.8) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.01) )) :}) :}) {::} (<code> (<index> index =  (<n> 24)) {::} (<if> if  (<data> (<combo> (<data> (<average> sum(main) / 52))   (<combine> -)   (<data> (<point> opposite[index]))))   (<eval> >)   (<data> (<combo> (<data> (<average> sum(opposite) / 52))   (<combine> +)   (<data> (<average> sum(opposite) / 52)))) :{:x =  (<expr> (x +  (<decimal> 1.0) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.5564853556485355, 0.5054441411114379]

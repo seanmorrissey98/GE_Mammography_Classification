@@ -1,0 +1,31 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 25
+  if main[index] > opposite[index]:
+    x = (x + 0.01)
+  index = 10
+  if main[index] < main[index]:
+    x = (x - 0.4)
+  index = 11
+  if abs(sum(main) - sum(opposite)) > 1000:
+    x = (x - 0.01)
+  index = 51
+  if sum(main) / 52 - main[index] < opposite[index] - main[index]:
+    x = (x - 0.4)
+  index = 28
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.5)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[1301, 34305, 97488, 52378, 63415, 14741, 41230, 64873, 45178, 44005, 66576, 55229, 54795, 36009, 63402, 62228, 45525, 55380, 61455, 93180, 72536, 95432, 99130, 13717, 64663, 24612, 91746, 35184, 51364, 70218, 83641, 13623, 74669, 62769, 65835, 65614, 83570, 79311, 80995, 90723, 76965, 25607, 77845, 67905, 25111, 5627, 96843, 59354, 96698, 79569, 91860, 27185, 82545, 62837, 61949, 35707, 68298, 11689, 71127, 79500, 10826, 9474, 92028, 21800, 23531, 28714, 42014, 84189, 44742, 72279, 47875, 67414, 61276, 80947, 50462, 70279, 69195, 49103, 99385, 88484, 16623, 68579, 40299, 60681, 28100, 90705, 84246, 8714, 2032, 82834, 66728, 77309, 11421]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 25)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x +  (<decimal> 0.01) )) :}) {::} (<code> (<index> index =  (<n> 10)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.4) )) :}) {::} (<code> (<index> index =  (<n> 11)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 1000) :{:x =  (<expr> (x -  (<decimal> 0.01) )) :}))) {::} (<code> (<index> index =  (<n> 51)) {::} (<if> if  (<data> (<combo> (<data> (<average> sum(main) / 52))   (<combine> -)   (<data> (<point> main[index]))))   (<eval> <)   (<data> (<combo> (<data> (<point> opposite[index]))   (<combine> -)   (<data> (<point> main[index])))) :{:x =  (<expr> (x -  (<decimal> 0.4) )) :}))) {::} (<code> (<index> index =  (<n> 28)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 5000) :{:x =  (<expr> (x +  (<decimal> 0.5) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.7891891891891892, 0.6029452385497254]

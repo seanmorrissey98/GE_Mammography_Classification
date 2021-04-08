@@ -1,0 +1,21 @@
+Generation:
+100
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 18
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.6)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[12753, 45134, 19988, 91357, 55242, 5142, 96705, 83029, 56086, 88779, 63636, 89157, 90369, 91024, 15292, 12064]
+Tree:
+None
+
+Training fitness:
+0.6889038974990915
+Test fitness:
+0.5799114170602204

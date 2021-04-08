@@ -1,0 +1,22 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 29
+  n = 25
+  b = 39
+  c = sum(opposite[:-index])
+  if c > sum(main[-index:]) - main[35] * opposite[30] + main[40] - opposite[24] / sum(opposite[-index:]):
+    x = 0.3
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[26772, 33491, 44964, 32330, 77294, 92693, 76066, 26120, 16563, 18794, 88824, 71053, 21837, 82777, 38204, 97937, 67749, 92571, 36902, 98858, 20353, 86486, 2820, 19850, 85040, 9415, 82970, 87602, 90450, 35476, 33739, 38331, 55784, 83240, 62401, 76366, 61886, 93268, 5689, 59366, 90837, 11233, 63143, 98607, 75427, 70377, 30157, 60298, 29100, 92322, 25860, 17614, 76771, 90437, 48577, 88300, 15479, 43963, 77540, 10708, 76273, 92184, 32310, 13004, 22019, 23516, 13682, 47747, 432, 83682, 29256, 42386, 81668, 84532, 62725, 11975]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 29)) {::} (<a> n =  (<n> 25)) {::} (<b> b =  (<n> 39)) {::} (<c> c =  (<data> (<n_avg> (<oppositePartial> sum(opposite[:-index]))))) {::} (<if> if c  (<eval> >)   (<data> (<combo> (<data> (<n_avg> (<mainPartial> sum(main[-index:]))))   (<combine> -)   (<data> (<combo> (<data> (<combo> (<data> (<point> main[ (<n> 35) ]))   (<combine> *)   (<data> (<point> opposite[ (<n> 30) ]))))   (<combine> +)   (<data> (<combo> (<data> (<point> main[ (<n> 40) ]))   (<combine> -)   (<data> (<combo> (<data> (<point> opposite[ (<n> 24) ]))   (<combine> /)   (<data> (<n_avg> (<oppositePartial> sum(opposite[-index:])))))))))))) :{:x =  (<expr> (<const> 0.3)) :})) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+0.5031495209112089

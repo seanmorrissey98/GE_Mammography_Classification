@@ -1,0 +1,40 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 23
+  if sum(main) / 52 - sum(opposite) / 52 > main[index] + main[index]:
+    x = (x - 0.3)
+  index = 48
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x - 0.0001)
+  index = 23
+  if sum(main) / 52 < sum(opposite) / 52:
+    x = (x - 0.3)
+  index = 43
+  if sum(opposite) / 52 > main[index]:
+    x = (x - 0.00001)
+  index = 6
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 500:
+    x = (x - 0.5)
+  index = 45
+  if sum(opposite) / 52 < sum(opposite) / 52:
+    x = (x - 0.6)
+  index = 10
+  if opposite[index] < main[index]:
+    x = (x - 0.000001)
+  index = 23
+  if sum(main) / 52 < sum(main) / 52:
+    x = (x - 0.001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[92136, 72769, 52870, 86894, 89239, 31927, 94730, 26280, 98237, 86610, 95746, 47346, 84136, 63395, 46374, 91386, 48123, 80, 21396, 63661, 83752, 53555, 31179, 46272, 26239, 61114, 8647, 75130, 29623, 78692, 5843, 17332, 31647, 97877, 12540, 56185, 18433, 44959, 73864, 26285, 33276, 85237, 64003, 68127, 19880, 27796, 70387, 22861, 45461, 42908, 74620, 87167, 64018, 43394, 85061, 89943, 59863, 31494, 4911, 88657, 77680, 51851, 26747, 93875, 91359, 88059, 59522, 3817, 62111, 37641, 68242, 83517, 18278, 93597, 54423, 79269, 16015, 93812, 46413, 59085, 22655, 2745, 75956, 51679, 87749, 10706, 82964, 98392, 90684, 90578, 53115, 28299, 37187, 61720, 83479, 68929, 76554, 54016, 82566, 57, 65130, 39787, 5559, 63009, 73359, 15385, 23155, 67273, 88239, 82905, 65358, 37698, 16187, 4488, 64448, 34142, 47932, 15248, 15082, 71202, 12340, 53987, 15914, 28022, 70591, 1680, 64761, 86418, 84026, 33119, 30281, 39041, 64184, 11075, 31930, 49944, 36169, 80892, 56010, 40918, 7688, 28427, 66842, 72674, 85866]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 23)) {::} (<if> if  (<data> (<combo> (<data> (<average> sum(main) / 52))   (<combine> -)   (<data> (<average> sum(opposite) / 52))))   (<eval> >)   (<data> (<combo> (<data> (<point> main[index]))   (<combine> +)   (<data> (<point> main[index])))) :{:x =  (<expr> (x -  (<decimal> 0.3) )) :}) {::} (<code> (<index> index =  (<n> 48)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 5000) :{:x =  (<expr> (x -  (<decimal> 0.0001) )) :})) {::} (<code> (<index> index =  (<n> 23)) {::} (<if> if  (<data> (<average> sum(main) / 52))   (<eval> <)   (<data> (<average> sum(opposite) / 52)) :{:x =  (<expr> (x -  (<decimal> 0.3) )) :})) {::} (<code> (<index> index =  (<n> 43)) {::} (<if> if  (<data> (<average> sum(opposite) / 52))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.00001) )) :}))) {::} (<code> (<index> index =  (<n> 6)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[-index:]))  -  (<oppositePartial> sum(opposite[:-index])) ) >  (<smaller> 500) :{:x =  (<expr> (x -  (<decimal> 0.5) )) :})) {::} (<code> (<index> index =  (<n> 45)) {::} (<if> if  (<data> (<average> sum(opposite) / 52))   (<eval> <)   (<data> (<average> sum(opposite) / 52)) :{:x =  (<expr> (x -  (<decimal> 0.6) )) :})) {::} (<code> (<index> index =  (<n> 10)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> <)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.000001) )) :})) {::} (<code> (<index> index =  (<n> 23)) {::} (<if> if  (<data> (<average> sum(main) / 52))   (<eval> <)   (<data> (<average> sum(main) / 52)) :{:x =  (<expr> (x -  (<decimal> 0.001) )) :})))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.41631799163179917, 0.5068263592859806]

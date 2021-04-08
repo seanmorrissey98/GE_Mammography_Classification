@@ -1,0 +1,19 @@
+Generation:
+7
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 6
+  if sum(opposite) / 52 < main[index]:
+    x = (x - 0.000001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[45839, 9685, 77252, 65867, 93866, 109, 40831, 20845, 39165, 64097, 49262, 6297, 93441, 64578, 50956, 25091, 4730, 65848]
+Tree:
+None
+
+Fitness:
+[0.033707865168539325, 0.49264561015558606]

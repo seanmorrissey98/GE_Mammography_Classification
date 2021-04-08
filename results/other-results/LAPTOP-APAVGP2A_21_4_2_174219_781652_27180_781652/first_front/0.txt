@@ -1,0 +1,19 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 2
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.1)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[3144, 98154, 14468, 86028, 75641, 81018, 81933, 26615, 21314, 84766, 92678, 77910, 44708, 38616, 6077, 10305]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 2)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 5000) :{:x =  (<expr> (x +  (<decimal> 0.1) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.8387096774193549, 0.6277487718075374]

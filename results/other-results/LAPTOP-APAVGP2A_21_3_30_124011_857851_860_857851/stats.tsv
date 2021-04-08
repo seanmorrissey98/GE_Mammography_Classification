@@ -1,0 +1,2 @@
+ave_genome_length	ave_tree_depth	ave_tree_nodes	ave_used_codons	first_front	gen	invalids	max_genome_length	max_tree_depth	max_tree_nodes	max_used_codons	min_genome_length	min_tree_depth	min_tree_nodes	min_used_codons	pareto_fronts	runtime_error	time_adjust	time_taken	total_inds	total_time	unique_inds	unused_search	
+1037.26	11.92	1011.6	691.64	7	0	0	16033	17	15744	10689	21	7	20	14	16	9	0	805.9930114746094	50	805.9930114746094	41	18.0	
