@@ -44,17 +44,12 @@ class MonteCarlo(base_ff):
         self.labels = df['Label']
         self.training = self.data
         self.test = self.data
-        self.n_vars = len(self.data)
-        self.training_test = True
+
         self.counter = 0
-        #self.first = True
-        #self.first2 = True
-        #self.tp_ind = []
-        #self.auc_ind = []
-        #self.avga_ind = []
-        #self.mcc_ind = []
-        self.test1 = 0
-        self.test2 = 0
+        self.tp_ind = []
+        self.auc_ind = []
+        self.avga_ind = []
+        self.mcc_ind = []
 
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
@@ -68,24 +63,20 @@ class MonteCarlo(base_ff):
             data = self.training
             self.start = round(len(data) * .20)
             self.n_points = len(data)
-            self.points = self.getPIRS()
 
         elif dist == "test":
             # Set test datasets.
-            print("BEST TP = ", self.test1)
-            print("BEST AUC = ", self.test2)
             data = self.test
             self.start = 0
             self.n_points = round(len(data) * .20)
-            self.points = list(range(0, self.n_points))
             in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
-            self.correctLabels = self.labels[0:self.n_points].values.tolist()
+
         p, d = ind.phenotype, {}
         training_attributes = data#[self.start:self.n_points]
         #training_labels = self.labels[self.start:self.n_points].values.tolist()
-        for i in (self.points):
+        for i in range(self.start, self.n_points):
             main = []
             opposite = []
             for j in range(52):
@@ -99,6 +90,7 @@ class MonteCarlo(base_ff):
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
             #progOuts.sort()
+
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
         initMid = progOuts[round(len(progOuts) / 2)]
@@ -109,18 +101,19 @@ class MonteCarlo(base_ff):
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
         fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
-        #self.tp_ind.append(self.getTruePositiveRate(progOuts))
-        #self.auc_ind.append(self.getRocAucScore(progOuts))
-        #self.avga_ind.append(self.getAVGA(progOuts))
-        #self.mcc_ind.append(self.getMCC(progOuts))
-        # self.counter = self.counter + 1
-        # print(self.counter)
-        #if self.counter == 50:
-        #    self.monteCarlo(self.tp_ind, "TP")
-        #    self.monteCarlo(self.auc_ind, "AUC")
-        #    self.monteCarlo(self.avga_ind, "AVGA")
-        #    self.monteCarlo(self.mcc_ind, "MCC")
-        self.getTestScore(p,d, fitness)
+
+        self.tp_ind.append(self.getTruePositiveRate(progOuts))
+        self.auc_ind.append(self.getRocAucScore(progOuts))
+        self.avga_ind.append(self.getAVGA(progOuts))
+        self.mcc_ind.append(self.getMCC(progOuts))
+        self.counter = self.counter + 1
+
+        if self.counter == 10000:
+            self.monteCarlo(self.tp_ind, "TP")
+            self.monteCarlo(self.auc_ind, "AUC")
+            self.monteCarlo(self.avga_ind, "AVGA")
+            self.monteCarlo(self.mcc_ind, "MCC")
+
         return fitness
 
     @staticmethod
@@ -184,7 +177,7 @@ class MonteCarlo(base_ff):
     """
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
                 if training_labels[i] == 0:
@@ -198,7 +191,7 @@ class MonteCarlo(base_ff):
 
     def getRocAucScore(self, progOuts):
         predictions = []
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 predictions.append(1)
@@ -209,7 +202,7 @@ class MonteCarlo(base_ff):
     def getTruePositiveRate(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -229,7 +222,7 @@ class MonteCarlo(base_ff):
     def getFalsePositiveRate(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -249,7 +242,7 @@ class MonteCarlo(base_ff):
     def getAVGA(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -268,7 +261,7 @@ class MonteCarlo(base_ff):
     def getMCC(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
-        training_labels = self.correctLabels#[self.start:self.n_points].values.tolist()
+        training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
                 if training_labels[i] == 1:
@@ -285,15 +278,6 @@ class MonteCarlo(base_ff):
         numerator = ((tp * tn) - (fp * fn))
         denominator = math.sqrt((tp+fp)*(tp+tn)*(fp+fn)*(tn+fn))
         return numerator / denominator
-
-    def writeToFile(self, predictions, message, tofile):
-        file = open(tofile, "a")
-        file.write("Boundary = " + str(self.boundary)+"\n")
-        file.write(str(message) + "\n")
-        for i in range(len(predictions)):
-            file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
-        file.write("\n\n\n")
-        file.close()
 
     def monteCarlo(self, population, text):
         file = open("MonteCarlo.txt", "a")
@@ -319,83 +303,3 @@ class MonteCarlo(base_ff):
         for i in population:
             sum = sum + i
         return sum / len(population)
-
-    def getPIRS(self):
-        benign = self.labels.value_counts()[0]
-        malignant = self.labels.value_counts()[1]
-        total = benign + malignant
-
-        percentage_b = round(benign/total, 2)
-        percentage_m = round(malignant/total, 2)
-
-        percent_majority = round(uniform(percentage_m, percentage_b),2)
-        percent_minority = round(1 - percent_majority,2)
-
-        majority_datapoints = round(total * percent_majority)
-        minority_datapoints = round(total * percent_minority)
-
-        if majority_datapoints + minority_datapoints == 5000:
-            majority_datapoints = majority_datapoints -1
-
-        datapoints = []
-        start = 0
-        end = int(benign)+int(malignant)
-
-        for i in range(int(majority_datapoints)):
-            datapoints.append(round(uniform(start, int(benign))))
-
-        for i in range(int(minority_datapoints)):
-            datapoints.append(round(uniform(int(benign),end-1)))
-
-        self.correctLabels = []
-        for i in datapoints:
-            # print("I: " + str(i) + "vs label: " + str(self.labels[i]))
-            self.correctLabels.append(self.labels[i])
-        return datapoints
-
-    def getTestScore(self, p, d, fitness):
-        data = self.test
-        self.start = 0
-        self.n_points = round(len(data) * .20)
-        self.points = list(range(0, self.n_points))
-        progOuts = []
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
-        df = pd.read_csv(in_file)
-        self.labels = df['Label']
-        self.correctLabels = self.labels[0:self.n_points].values.tolist()
-        training_attributes = data#[self.start:self.n_points]
-        #training_labels = self.labels[self.start:self.n_points].values.tolist()
-        for i in (self.points):
-            main = []
-            opposite = []
-            for j in range(52):
-                main.append(training_attributes["x"+str(j)][i])
-                opposite.append(training_attributes["x"+str(j+52)][i])
-            d["main"] = main
-            d["opposite"] = opposite
-            d['n_points'] = len(d['main'])
-
-            exec(p, d)
-            progOuts.append(d["XXX_output_XXX"])
-        initMid = progOuts[round(len(progOuts) / 2)]
-        max = progOuts[len(progOuts) - 1]
-        min = progOuts[0]
-        initMin = (initMid + min) / 2
-        initMax = (initMid + max) / 2
-        error = 1
-        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        tp = self.getTruePositiveRate(progOuts) 
-        auc = self.getRocAucScore(progOuts)
-        if tp > self.test1 and auc > self.test2:
-            self.test1 = tp
-            self.test2 = auc
-            self.writeClassifier(p, fitness)
-
-    def writeClassifier(self, p, fitness):
-        file = open(self.filename, "a")
-        file.write("Training fitness: " + str(fitness) +"\n")
-        file.write("Test TPR: " + str(self.test1) +"\n")
-        file.write("Test AUC: " + str(self.test2) + "\n")
-        file.write(p)
-        file.write("\n\n\n")
-        file.close()
