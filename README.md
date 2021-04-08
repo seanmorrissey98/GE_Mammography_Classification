@@ -71,9 +71,21 @@ The final fitness function taken into consideration was Average Accuracy (AVGA) 
 
 ![Average Accuracy](/images/AVGA.png)
 #### Sampling
+Two sampling techniques were implemented as part of this project to reduce the class imbalace problem:
+* Oversampling
+* Proportional Individualised Random Sampling (PIRS)
+
+###### Oversampling
+Oversampling aims to reduce the class imbalance by increasing the number of individuals in the minority class. The oversampling technique implemented for this project is random oversampling. Random oversampling works to increase the minority class by duplicating individuals in the minority class. A breakdown of the dataset before and after oversampling can be seen in the image below.
+
+![Oversampling](/images/sampling.png)
+###### Proportional Individualised Random Sampling
+PIRS differs from oversampling as the size of the dataset remains the same as the original dataset and so does not increase the training time and computational cost / requirements which over sampling introduces due to a larger dataset. PIRS works by varying the number of instances of each class a classifier is trained with from the original dataset. This way each classifier in the population is trained on varying ratios of the minority to majority class.
 
 #### Boundary Determination
-
+Four fitness functions were implemented as part of this project:
+* True Positive Rate (TPR)
+* Area under the curve of receiver operating characteristics (AUC)
 #### Monte Carlo Simulation
 
 ## Results
