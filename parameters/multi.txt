@@ -1,4 +1,4 @@
-CACHE:                  False
+CACHE:                  True
 CODON_SIZE:             100000
 CROSSOVER:              variable_onepoint
 CROSSOVER_PROBABILITY:  0.80
@@ -13,7 +13,7 @@ MIN_INIT_TREE_DEPTH:    6
 MAX_TREE_DEPTH:         17
 MUTATION:               int_flip_per_codon
 MUTATION_PROBABILITY:  	0.20
-POPULATION_SIZE:        50
+POPULATION_SIZE:        2000
 FITNESS_FUNCTION:       MonteCarlo
 SELECTION:              nsga2_selection
 TOURNAMENT_SIZE:        5
