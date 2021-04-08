@@ -53,19 +53,23 @@ Four fitness functions were implemented as part of this project:
 
 ###### True Positive Rate
 The first fitness function taken into consideration was the true positive rate also known as Sensitivity i.e., the number of correctly identified suspicious areas per segment. The equation for the TPR can be seen in the image below.
+
 ![True Positive Rate](/images/TPR.png)
 
-###### True Positive Rate
+###### Area Under the Curve
 The second fitness function taken into consideration needed to combine aspects of both the true positive rate and false positive rate and so the AUC of ROC curve was considered. This method is a “single scalar value that measures the overall performance of a binary classifier”. The true positive rate is plotted on the y axis, with the false positive rate plotted on the x axis. An example of a plot of an AUC can be seen in the image below.
-![True Positive Rate](/images/AUC.png)
+
+![Area Under the Curve](/images/AUC.png)
 
 ###### Matthews Correlation Coefficient
 The third fitness function taken into consideration was the Matthews Correlation Coefficient which is a common fitness function in machine learning for the use in binary classification problems. This fitness function calculates correlation coefficient between the actual and the predicted classifications. Unlike the TPR, the MCC takes into account true positives, true negatives, false positives and false negatives.The equation for the MCC can be seen in the image below.
-![True Positive Rate](/images/MCC.png)
+
+![Matthews Correlation Coefficient](/images/MCC.png)
 
 ###### Average Accuracy
 The final fitness function taken into consideration was Average Accuracy (AVGA) also known as Balanced Accuracy. The equation for AVGA works by adding the TPR (sensitivity) and the specificity (true negative rate) together and dividing it by 2 or multiplying it by 0.5 to get a value in the range [0, 1]. The equation for the AVGA can be seen in the image below.
-![True Positive Rate](/images/AVGA.png)
+
+![Average Accuracy](/images/AVGA.png)
 #### Sampling
 
 #### Boundary Determination
