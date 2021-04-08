@@ -27,5 +27,15 @@ mammogram.
 ## Features
 
 ## How-to
+To run the program, first change directory to the source directory.
+```
+cd src/
+```
+From the source directory the *PonyGE2* program can be ran with the following command where `filename` is replaced with the relevant parameter filename which you want to use.
+```
+python ponyge.py --parameters filename.txt
+```
+Statistics such as the `generation`, `average tree size`, etc., along with either the average fitness when using a *Single Objective Optimisation* parameter file or a list of the pareto fronts when using a *Multi-Objective Optimisation* parameter file are printed to the terminal at the end of each generation.
 
+The results of each run are updated at each generation and can be found in the _GE_Mammography_Classification/results_ folder.
 ## Results
