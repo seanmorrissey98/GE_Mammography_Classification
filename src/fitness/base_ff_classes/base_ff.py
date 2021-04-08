@@ -16,7 +16,6 @@ class base_ff:
 
     # Default fitness objective is to minimise fitness.
     maximise = True
-    #multi_objective = True
 
     def __init__(self):
         pass
