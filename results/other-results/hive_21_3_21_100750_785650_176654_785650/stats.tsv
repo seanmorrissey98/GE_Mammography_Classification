@@ -1,0 +1,2 @@
+ave_fitness	ave_genome_length	ave_tree_depth	ave_tree_nodes	ave_used_codons	best_fitness	gen	invalids	max_genome_length	max_tree_depth	max_tree_nodes	max_used_codons	min_genome_length	min_tree_depth	min_tree_nodes	min_used_codons	runtime_error	time_adjust	time_taken	total_inds	total_time	unique_inds	unused_search	
+0.5013563350547214	4605.924	14.77	4410.838	3070.795	0.5072179012149963	0	0	28110	17	26936	18740	25	7	24	17	737	0	541.6095821857452	1000	541.6095821857452	1000	0.0	
