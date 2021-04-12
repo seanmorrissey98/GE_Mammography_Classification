@@ -1,0 +1,52 @@
+Generation:
+0
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 6
+  if abs(sum(main) - sum(opposite)) > 5000:
+    x = (x + 0.001)
+  index = 3
+  if main[index] < 1:
+    if opposite[index] > main[index] + 1.0:
+      x = (x + 0.3)
+  else:
+    if opposite[index] > main[index] + 5:
+      x = (x + 0.8)
+    else:
+      x = (x + 0.01)
+  index = 9
+  if abs(sum(main[:-index]) - sum(opposite[-index:])) > 5000:
+    x = (x + 1.0)
+  index = 22
+  if sum(opposite) / 52 < main[index]:
+    x = (x + 0.9)
+  index = 49
+  if main[index] < 1:
+    if main[index] < main[index] + 0.2:
+      x = (x - 0.4)
+  else:
+    if main[index] > main[index] + 6:
+      x = (x + 0.0000001)
+    else:
+      x = (x - 0.8)
+  index = 24
+  if sum(opposite) / 52 < opposite[index]:
+    x = (x - 0.01)
+  index = 11
+  if main[index] > main[index]:
+    x = (x + 0.000001)
+  index = 40
+  if main[index] < main[index]:
+    x = (x - 0.01)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[77699, 55498, 65001, 29151, 1710, 69870, 1241, 650, 88042, 56108, 42560, 80272, 34640, 9576, 88882, 46051, 54436, 7531, 1012, 25837, 95624, 57455, 26059, 26273, 52015, 55319, 35650, 92119, 34596, 86587, 56423, 87260, 62847, 62005, 7970, 18855, 43092, 18046, 95259, 20873, 89026, 14661, 58317, 128, 52371, 29304, 22618, 53809, 8448, 31724, 53408, 34775, 42934, 70989, 30481, 18175, 96119, 23411, 40039, 49516, 72483, 69076, 65091, 42385, 88229, 13571, 73251, 92199, 30745, 65980, 16697, 58823, 55025, 28285, 37878, 46920, 61044, 76350, 4530, 73582, 64873, 29056, 75221, 22944, 54816, 81877, 39809, 63417, 94282, 18618, 39843, 75608, 48485, 90088, 37534, 63214, 6504, 62910, 77190, 9295, 87815, 33249, 9794, 45307, 47643, 22424, 2778, 25246, 43330, 88309, 60504, 54792, 81592, 81299, 39604, 86120, 57513, 43149, 40987, 99410, 43834, 31146, 86704, 39311, 49608, 77640, 711, 39581, 88252, 39180, 98933, 60059, 29559, 38260, 32214, 62023, 85400, 23018, 48626, 59186, 59372, 29795, 34864, 26364, 41362, 51635, 52776, 15018, 95179, 69630, 40621]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 6)) {::} (<if> (<compareSum> if abs(sum(main) - sum(opposite)) >  (<larger> 5000) :{:x =  (<expr> (x +  (<decimal> 0.001) )) :})) {::} (<code> (<index> index =  (<n> 3)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  >  (<point> main[index])  +  (<decimal> 1.0) :{:x =  (<expr> (x +  (<decimal> 0.3) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  >  (<point> main[index])  +  (<ints> 5) :{:x =  (<expr> (x +  (<decimal> 0.8) )) :}else:{:x =  (<expr> (x +  (<decimal> 0.01) )) :}) :}) {::} (<code> (<index> index =  (<n> 9)) {::} (<if> (<compareSum> if abs( (<mainPartial> sum(main[:-index]))  -  (<oppositePartial> sum(opposite[-index:])) ) >  (<smaller> 5000) :{:x =  (<expr> (x +  (<decimal> 1.0) )) :})) {::} (<code> (<index> index =  (<n> 22)) {::} (<if> if  (<data> (<average> sum(opposite) / 52))   (<eval> <)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.9) )) :}))) {::} (<code> (<index> index =  (<n> 49)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> main[index])  <  (<point> main[index])  +  (<decimal> 0.2) :{:x =  (<expr> (x -  (<decimal> 0.4) )) :}) :}else:{: (<compareInt> if  (<point> main[index])  >  (<point> main[index])  +  (<ints> 6) :{:x =  (<expr> (x +  (<decimal> 0.0000001) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.8) )) :}) :}) {::} (<code> (<index> index =  (<n> 24)) {::} (<if> if  (<data> (<average> sum(opposite) / 52))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x -  (<decimal> 0.01) )) :})) {::} (<code> (<index> index =  (<n> 11)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 0.000001) )) :})) {::} (<code> (<index> index =  (<n> 40)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> main[index])) :{:x =  (<expr> (x -  (<decimal> 0.01) )) :}))))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.6589861751152074, 0.5587368739140288]

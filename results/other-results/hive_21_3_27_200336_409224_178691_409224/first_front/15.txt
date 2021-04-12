@@ -1,0 +1,48 @@
+Generation:
+60
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 32
+  if main[index] < 1:
+    if main[index] > main[index] + 0.01:
+      x = (x + 0.8)
+  else:
+    if opposite[index] > main[index] + 5:
+      x = (x - 0.7)
+    else:
+      x = (x - 0.3)
+  index = 27
+  if main[index] < 1:
+    if main[index] < opposite[index] + 0.0000001:
+      x = (x - 0.2)
+  else:
+    if opposite[index] > main[index] + 0:
+      x = (x - 0.2)
+    else:
+      x = (x + 0.8)
+  index = 35
+  if sum(opposite[-index:]) > sum(opposite) / 52:
+    x = (x - 0.5)
+  index = 5
+  if main[index] < 1:
+    if opposite[index] > opposite[index] + 0.0001:
+      x = (x - 0.8)
+  else:
+    if opposite[index] < main[index] + 3:
+      x = (x + 0.9)
+    else:
+      x = (x - 0.001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[34534, 70860, 96633, 60595, 12408, 55535, 27244, 62998, 61228, 93749, 1500, 38909, 73454, 92071, 11246, 38515, 1341, 65468, 70799, 28824, 48985, 69446, 85047, 45479, 38813, 43304, 98729, 27264, 28575, 76295, 24064, 34891, 71938, 95920, 77981, 95351, 30730, 12525, 81565, 79250, 57911, 52189, 26872, 22293, 53544, 86446, 75367, 49907, 89013, 81642, 9684, 97277, 93241, 92381, 85720, 21813, 27867, 86307, 29133, 8797, 45989, 66133, 49914, 78423, 50818, 39118, 68985, 22388, 14746]
+Tree:
+None
+
+Training fitness:
+[0.19117647058823528, 0.9583856127143455]
+Test fitness:
+[0.13953488372093023, 0.9539941447093266]
