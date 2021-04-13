@@ -1,0 +1,64 @@
+Generation:
+1
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 28
+  if sum(main[:-index]) > sum(opposite) / 52:
+    x = (x + 0.0001)
+  index = 3
+  if abs(sum(main[-index:]) - sum(opposite[-index:])) > 500:
+    x = (x - 0.6)
+  index = 11
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 1000:
+    x = (x - 0.6)
+  index = 36
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 5000:
+    x = (x - 0.0001)
+  index = 40
+  if sum(main[:-index]) > sum(opposite[-index:]):
+    x = (x + 0.4)
+  index = 27
+  if main[index] < 1:
+    if main[index] < opposite[index] + 1.0:
+      x = (x + 0.3)
+  else:
+    if main[index] > main[index] + 9:
+      x = (x - 0.00001)
+    else:
+      x = (x + 0.0001)
+  index = 35
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 1000:
+    x = (x - 0.0000001)
+  index = 27
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 50:
+    x = (x + 0.001)
+  index = 10
+  if abs(sum(main[-index:]) - sum(opposite[:-index])) > 1000:
+    x = (x + 0.4)
+  index = 27
+  if main[index] < 1:
+    if main[index] < opposite[index] + 1.0:
+      x = (x + 0.3)
+  else:
+    if main[index] > main[index] + 9:
+      x = (x - 0.00001)
+    else:
+      x = (x + 0.0001)
+  index = 35
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 1000:
+    x = (x - 0.0000001)
+  index = 27
+  if abs(sum(main[:-index]) - sum(opposite[:-index])) > 50:
+    x = (x + 0.001)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[12096, 55442, 95835, 26200, 48908, 55741, 13008, 82306, 96345, 41876, 77263, 93939, 49718, 36131, 2926, 13467, 57151, 26268, 41416, 68328, 68750, 85432, 49799, 50267, 64530, 96152, 58355, 14925, 30834, 59315, 66435, 51788, 9657, 5755, 36448, 61907, 32224, 4524, 21848, 81459, 43689, 22514, 37735, 10931, 95545, 92900, 25988, 59089]
+Tree:
+None
+
+Fitness:
+[0.9262672811059908, 0.49552391025156756]

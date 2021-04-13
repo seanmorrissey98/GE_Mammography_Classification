@@ -1,0 +1,34 @@
+Generation:
+2
+
+Phenotype:
+def p():
+  x = 0.0
+  index = 42
+  if main[index] < 1:
+    if opposite[index] > main[index] + 0.0000001:
+      x = (x - 0.6)
+  else:
+    if opposite[index] < opposite[index] + 6:
+      x = (x + 0.01)
+    else:
+      x = (x - 0.0001)
+  index = 14
+  if sum(main) / 52 > sum(main) / 52:
+    x = (x + 0.000001)
+  index = 27
+  if main[index] < opposite[index]:
+    x = (x + 0.9)
+  index = 14
+  if opposite[index] > main[index]:
+    x = (x + 1.0)
+  return x
+XXX_output_XXX = p()
+
+Genotype:
+[957, 32961, 7647, 97537, 74267, 9872, 23322, 76675, 35071, 35503, 98820, 60883, 8130, 83456, 3838, 82480, 30568, 3199, 33051, 24211, 38226, 73289, 27673, 19878, 435, 81850, 68335, 48914, 46018, 9864, 28274, 81915, 23986, 56926, 63479, 57506, 84625, 66389, 23577, 20453, 86654, 99711, 57743, 40349, 4773, 58737, 5793, 82325, 48491, 38829, 51859, 60870, 66626, 90670, 79281, 87217, 62800, 31143, 23212, 15910, 34400, 39530, 97659, 45859, 88283, 39279, 86415, 9897, 36643, 90515, 82759, 29217, 20399, 86298, 35917, 29268, 82241, 94347, 87240, 57865, 35762]
+Tree:
+(<p> (<defp> def p():{:x = 0.0{::} (<code> (<index> index =  (<n> 42)) {::} (<if> if main[index] < 1:{: (<compareDec> if  (<point> opposite[index])  >  (<point> main[index])  +  (<decimal> 0.0000001) :{:x =  (<expr> (x -  (<decimal> 0.6) )) :}) :}else:{: (<compareInt> if  (<point> opposite[index])  <  (<point> opposite[index])  +  (<ints> 6) :{:x =  (<expr> (x +  (<decimal> 0.01) )) :}else:{:x =  (<expr> (x -  (<decimal> 0.0001) )) :}) :}) {::} (<code> (<index> index =  (<n> 14)) {::} (<if> if  (<data> (<average> sum(main) / 52))   (<eval> >)   (<data> (<average> sum(main) / 52)) :{:x =  (<expr> (x +  (<decimal> 0.000001) )) :})) {::} (<code> (<index> index =  (<n> 27)) {::} (<if> if  (<data> (<point> main[index]))   (<eval> <)   (<data> (<point> opposite[index])) :{:x =  (<expr> (x +  (<decimal> 0.9) )) :})) {::} (<code> (<index> index =  (<n> 14)) {::} (<if> if  (<data> (<point> opposite[index]))   (<eval> >)   (<data> (<point> main[index])) :{:x =  (<expr> (x +  (<decimal> 1.0) )) :}))) {::}return x:}) {::} (<callp> XXX_output_XXX = p()))
+
+Fitness:
+[0.6853932584269663, 0.5660674745419312]
