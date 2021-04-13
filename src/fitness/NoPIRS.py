@@ -33,8 +33,6 @@ class NoPIRS(base_ff):
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
         df = pd.read_csv(in_file)
-        #df.sort_values(by=['Label'], inplace=True)
-        #df.to_csv('sortedMCC.csv')
 
         haralick_features = []
         for i in range(104):
@@ -45,14 +43,6 @@ class NoPIRS(base_ff):
         self.training = self.data
         self.test = self.data
         self.n_vars = len(self.data)
-        self.training_test = True
-        self.counter = 0
-        #self.first = True
-        #self.first2 = True
-        #self.tp_ind = []
-        #self.auc_ind = []
-        #self.avga_ind = []
-        #self.mcc_ind = []
         self.test1 = 0
         self.test2 = 0
 
@@ -68,15 +58,13 @@ class NoPIRS(base_ff):
             data = self.training
             self.start = round(len(data) * .20)
             self.n_points = len(data)
-            self.points = self.getPIRS()
+            self.points = list(range(self.start, self.n_points))
             in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
 
         elif dist == "test":
             # Set test datasets.
-            print("BEST TP = ", self.test1)
-            print("BEST AUC = ", self.test2)
             data = self.test
             self.start = 0
             in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
@@ -85,9 +73,9 @@ class NoPIRS(base_ff):
             self.n_points = round(len(self.labels) * .20)
             self.points = list(range(0, self.n_points))
             self.correctLabels = self.labels[0:self.n_points].values.tolist()
+
         p, d = ind.phenotype, {}
-        training_attributes = data#[self.start:self.n_points]
-        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_attributes = data
         for i in range(self.start, self.n_points):
             main = []
             opposite = []
@@ -101,9 +89,9 @@ class NoPIRS(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-            #progOuts.sort()
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
+
         initMid = progOuts[round(len(progOuts) / 2)]
         max = progOuts[len(progOuts) - 1]
         min = progOuts[0]
@@ -111,19 +99,8 @@ class NoPIRS(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+
         fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
-        #self.tp_ind.append(self.getTruePositiveRate(progOuts))
-        #self.auc_ind.append(self.getRocAucScore(progOuts))
-        #self.avga_ind.append(self.getAVGA(progOuts))
-        #self.mcc_ind.append(self.getMCC(progOuts))
-        # self.counter = self.counter + 1
-        # print(self.counter)
-        #if self.counter == 50:
-        #    self.monteCarlo(self.tp_ind, "TP")
-        #    self.monteCarlo(self.auc_ind, "AUC")
-        #    self.monteCarlo(self.avga_ind, "AVGA")
-        #    self.monteCarlo(self.mcc_ind, "MCC")
-        self.getTestScore(p,d, fitness)
         return fitness
 
     @staticmethod
@@ -289,73 +266,6 @@ class NoPIRS(base_ff):
         denominator = math.sqrt((tp+fp)*(tp+tn)*(fp+fn)*(tn+fn))
         return numerator / denominator
 
-    def writeToFile(self, predictions, message, tofile):
-        file = open(tofile, "a")
-        file.write("Boundary = " + str(self.boundary)+"\n")
-        file.write(str(message) + "\n")
-        for i in range(len(predictions)):
-            file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
-        file.write("\n\n\n")
-        file.close()
-
-    def monteCarlo(self, population, text):
-        file = open("MonteCarlo.txt", "a")
-        average = self.getAverage(population)
-        variance = self.getVariance(population, average)
-        standardDeviation = self.getSDeviation(variance)
-        file.write(text + " variance: " + str(variance) + "\n")
-        file.write(text + " standard deviation: " + str(standardDeviation) + "\n")
-        file.write(text + " average: " + str(average) + "\n\n")
-        return
-
-    def getVariance(self, population, average):
-        sum = 0
-        for i in population:
-            sum = sum + ((i - average) * (i - average))
-        return sum / len(population)
-
-    def getSDeviation(self, variance):
-        return math.sqrt(variance)
-
-    def getAverage(self, population):
-        sum = 0
-        for i in population:
-            sum = sum + i
-        return sum / len(population)
-
-    def getPIRS(self):
-        benign = self.labels.value_counts()[0]
-        malignant = self.labels.value_counts()[1]
-        total = benign + malignant
-
-        percentage_b = round(benign/total, 2)
-        percentage_m = round(malignant/total, 2)
-
-        percent_majority = round(uniform(percentage_m, percentage_b),2)
-        percent_minority = round(1 - percent_majority,2)
-
-        majority_datapoints = round(total * percent_majority)
-        minority_datapoints = round(total * percent_minority)
-
-        if majority_datapoints + minority_datapoints == 5000:
-            majority_datapoints = majority_datapoints -1
-
-        datapoints = []
-        start = 0
-        end = int(benign)+int(malignant)
-
-        for i in range(int(majority_datapoints)):
-            datapoints.append(round(uniform(start, int(benign))))
-
-        for i in range(int(minority_datapoints)):
-            datapoints.append(round(uniform(int(benign),end-1)))
-
-        self.correctLabels = []
-        for i in datapoints:
-            # print("I: " + str(i) + "vs label: " + str(self.labels[i]))
-            self.correctLabels.append(self.labels[i])
-        return datapoints
-
     def getTestScore(self, p, d, fitness):
         data = self.test
         self.start = 0
@@ -366,8 +276,7 @@ class NoPIRS(base_ff):
         self.n_points = round(len(self.labels) * .20)
         self.points = list(range(0, self.n_points))
         self.correctLabels = self.labels[0:self.n_points].values.tolist()
-        training_attributes = data#[self.start:self.n_points]
-        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_attributes = data
         for i in (self.points):
             main = []
             opposite = []

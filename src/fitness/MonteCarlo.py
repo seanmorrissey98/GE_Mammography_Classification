@@ -33,8 +33,6 @@ class MonteCarlo(base_ff):
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
-        df.sort_values(by=['Label'], inplace=True)
-        df.to_csv('sortedMCC.csv')
 
         haralick_features = []
         for i in range(104):
@@ -74,8 +72,7 @@ class MonteCarlo(base_ff):
             self.labels = df['Label']
 
         p, d = ind.phenotype, {}
-        training_attributes = data#[self.start:self.n_points]
-        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_attributes = data
         for i in range(self.start, self.n_points):
             main = []
             opposite = []
@@ -89,7 +86,6 @@ class MonteCarlo(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-            #progOuts.sort()
 
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB

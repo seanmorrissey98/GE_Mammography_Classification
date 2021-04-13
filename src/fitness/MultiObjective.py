@@ -1,12 +1,12 @@
-#!/usr/bin/env python
-
 from itertools import count
+from typing import Counter
 from fitness.base_ff_classes.base_ff import base_ff
 import pandas as pd
 from sklearn.metrics import roc_auc_score
+import math
 from random import uniform
-import random
-
+import numpy as np
+import time
 
 class MultiObjective(base_ff):
     """
@@ -27,30 +27,30 @@ class MultiObjective(base_ff):
         dummyfit.maximise = True
         self.fitness_functions = [dummyfit, dummyfit]
         self.default_fitness = [-1, -1]
+        t = time.localtime()
+        current_time = time.strftime("%H-%M-%S", t)
+        self.filename = current_time + ".txt"
 
         in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         df.sort_values(by=['Label'], inplace=True)
-        df.to_csv('sortedMCC.csv')
 
         haralick_features = []
         for i in range(104):
             feature = "x"+ str(i)
             haralick_features.append(feature)
-
         self.data = df[haralick_features]
         self.labels = df['Label']
         self.training = self.data
         self.test = self.data
         self.n_vars = len(self.data)
-        self.training_test = True
-
+        self.test1 = 0
+        self.test2 = 0
 
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
         data = []
         progOuts = []
-        labels = self.labels
         self.start = 0
         self.boundary = 0
 
@@ -58,20 +58,29 @@ class MultiObjective(base_ff):
             # Set training datasets.
             data = self.training
             self.start = round(len(data) * .20)
+            self.n_points = len(data)
+            self.points = self.getPIRS()
 
         elif dist == "test":
             # Set test datasets.
             data = self.test
-            self.start = len(self.test) - round(len(data) * .20)
+            self.start = 0
+            self.n_points = round(len(data) * .20)
+            self.points = list(range(0, self.n_points))
+            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+            df = pd.read_csv(in_file)
+            self.labels = df['Label']
+            self.correctLabels = self.labels[0:self.n_points].values.tolist()
+        
         p, d = ind.phenotype, {}
-        n_points = len(data) # Number of data points available . . 4999
-        self.points = self.getPIRS()
+        training_attributes = data
+        
         for i in (self.points):
             main = []
             opposite = []
             for j in range(52):
-                main.append(data["x"+str(j)][i])
-                opposite.append(data["x"+str(j+52)][i])
+                main.append(training_attributes["x"+str(j)][i])
+                opposite.append(training_attributes["x"+str(j+52)][i])
             d["main"] = main
             d["opposite"] = opposite
             d['n_points'] = len(d['main'])
@@ -79,12 +88,7 @@ class MultiObjective(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-            progOuts.sort()
-            #if i == 1001:
-             #   print("Main: ",main)
-              #  print("Label: ",self.labels[i])
-               # print("Progouts: ", progOuts[len(progOuts)-1])
-                #print("Progouts position: ", len(progOuts)-1)
+        
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
         initMid = progOuts[round(len(progOuts) / 2)]
@@ -94,7 +98,8 @@ class MultiObjective(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts, n_points)]
+
+        fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
         return fitness
 
     @staticmethod
@@ -108,7 +113,6 @@ class MultiObjective(base_ff):
         :param objective_index: The index of the desired fitness.
         :return: The fitness at the objective index of the fitness vecror.
         """
-
         if not isinstance(fitness_vector, list):
             return float("inf")
 
@@ -159,29 +163,41 @@ class MultiObjective(base_ff):
     """
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
+        training_labels = self.correctLabels
         for i in range(len(progOuts)):
             if progOuts[i] > boundary:  # Guessing suspicious area present
-                if self.labels[self.points[i]] == 0:
+                if training_labels[i] == 0:
                     # False Positive
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.points[i]] == 1:
+                if training_labels[i] == 1:
                     # False Negative
                     fn = fn + 1
         return (fp + fn) / len(progOuts)
 
+    def getRocAucScore(self, progOuts):
+        predictions = []
+        training_labels = self.correctLabels
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                predictions.append(1)
+            else:  # Guessing suspicious area not present
+                predictions.append(0)
+        return roc_auc_score(training_labels, predictions)
+
     def getTruePositiveRate(self, progOuts):
         tp, fn = 0, 0
         tn, fp = 0, 0
+        training_labels = self.correctLabels
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                if self.labels[self.points[i]] == 1:
+                if training_labels[i] == 1:
                     # Correct guess increase true positive counter
                     tp = tp + 1
                 else:
                     fp = fp + 1
             else:  # Guessing suspicious area not present
-                if self.labels[self.points[i]] == 1:
+                if training_labels[i] == 1:
                     # Incorrect guess increase false negative counter
                     fn = fn + 1
                 else:
@@ -189,18 +205,74 @@ class MultiObjective(base_ff):
         fn = 1 if tp + fn == 0 else fn
         return tp/(tp+fn)
 
-    def getRocAucScore(self, progOuts, n_points):
-        predictions = []
-        ordered_labels = []
-        for j in (self.points):
-            ordered_labels.append(self.labels[j])
+    def getFalsePositiveRate(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels
         for i in range(len(progOuts)):
             if progOuts[i] > self.boundary:  # Guessing suspicious area present
-                predictions.append(1)
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
             else:  # Guessing suspicious area not present
-                predictions.append(0)
-        #print("AUC: ", roc_auc_score(self.labels[self.start:n_points], predictions))
-        return roc_auc_score(ordered_labels, predictions)
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        fn = 1 if tp + fn == 0 else fn
+        return -(fp/(fp+tn))
+
+    def getAVGA(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        return 0.5 * (tp/(tp+fn) + tn/(tn+fp))
+
+    def getMCC(self, progOuts):
+        tp, fn = 0, 0
+        tn, fp = 0, 0
+        training_labels = self.correctLabels
+        for i in range(len(progOuts)):
+            if progOuts[i] > self.boundary:  # Guessing suspicious area present
+                if training_labels[i] == 1:
+                    # Correct guess increase true positive counter
+                    tp = tp + 1
+                else:
+                    fp = fp + 1
+            else:  # Guessing suspicious area not present
+                if training_labels[i] == 1:
+                    # Incorrect guess increase false negative counter
+                    fn = fn + 1
+                else:
+                    tn = tn + 1
+        numerator = ((tp * tn) - (fp * fn))
+        denominator = math.sqrt((tp+fp)*(tp+tn)*(fp+fn)*(tn+fn))
+        return numerator / denominator
+
+    def writeToFile(self, predictions, message, tofile):
+        file = open(tofile, "a")
+        file.write("Boundary = " + str(self.boundary)+"\n")
+        file.write(str(message) + "\n")
+        for i in range(len(predictions)):
+            file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
+        file.write("\n\n\n")
+        file.close()
 
     def getPIRS(self):
         benign = self.labels.value_counts()[0]
@@ -217,7 +289,7 @@ class MultiObjective(base_ff):
         minority_datapoints = round(total * percent_minority)
 
         if majority_datapoints + minority_datapoints == 5000:
-            majority_datapoints = majority_datapoints - 1
+            majority_datapoints = majority_datapoints -1
 
         datapoints = []
         start = 0
@@ -228,5 +300,55 @@ class MultiObjective(base_ff):
 
         for i in range(int(minority_datapoints)):
             datapoints.append(round(uniform(int(benign),end-1)))
-        random.shuffle(datapoints)
+
+        self.correctLabels = []
+        for i in datapoints:
+            self.correctLabels.append(self.labels[i])
         return datapoints
+
+    def getTestScore(self, p, d, fitness):
+        data = self.test
+        self.start = 0
+        self.n_points = round(len(data) * .20)
+        self.points = list(range(0, self.n_points))
+        progOuts = []
+        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        df = pd.read_csv(in_file)
+        self.labels = df['Label']
+        self.correctLabels = self.labels[0:self.n_points].values.tolist()
+        training_attributes = data#[self.start:self.n_points]
+        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        for i in (self.points):
+            main = []
+            opposite = []
+            for j in range(52):
+                main.append(training_attributes["x"+str(j)][i])
+                opposite.append(training_attributes["x"+str(j+52)][i])
+            d["main"] = main
+            d["opposite"] = opposite
+            d['n_points'] = len(d['main'])
+
+            exec(p, d)
+            progOuts.append(d["XXX_output_XXX"])
+        initMid = progOuts[round(len(progOuts) / 2)]
+        max = progOuts[len(progOuts) - 1]
+        min = progOuts[0]
+        initMin = (initMid + min) / 2
+        initMax = (initMid + max) / 2
+        error = 1
+        self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
+        tp = self.getTruePositiveRate(progOuts) 
+        auc = self.getRocAucScore(progOuts)
+        if tp > self.test1 and auc > self.test2:
+            self.test1 = tp
+            self.test2 = auc
+            self.writeClassifier(p, fitness)
+
+    def writeClassifier(self, p, fitness):
+        file = open(self.filename, "a")
+        file.write("Training fitness: " + str(fitness) +"\n")
+        file.write("Test TPR: " + str(self.test1) +"\n")
+        file.write("Test AUC: " + str(self.test2) + "\n")
+        file.write(p)
+        file.write("\n\n\n")
+        file.close()
