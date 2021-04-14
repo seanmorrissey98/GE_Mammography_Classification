@@ -39,10 +39,10 @@ The results of each run are updated at each generation and can be found in the _
 
 ## Features
 #### Grammar
-The grammars for this project can be found in the _GE_Mammography_Classification/grammars_ folder. The primary grammar file used throughout this project was *FypV2.pybnf*. The non-terminal set for the grammar is what will build out the derivation trees of individuals as it contains recursive elements. It does this through a recursive amount of if statements. The if statements can select and combine Haralick features and using logical operators compare them against other Haralick features.
+The grammars for this project can be found in the _GE_Mammography_Classification/grammars_ folder, along with more information. The primary grammar file used throughout this project was *FypV2.pybnf*. The non-terminal set for the grammar is what will build out the derivation trees of individuals as it contains recursive elements. It does this through a recursive amount of if statements. The if statements can select and combine Haralick features and using logical operators compare them against other Haralick features.
 
 #### Parameters
-The parameter files for this project can be found in the _GE_Mammography_Classification/parameters_ folder. The primary parameter files used throughout this project were *single.txt* and *multi.txt*. The difference between these two parameter files are that *single.txt* is for use in *Single Objective Optimisation* and uses **generational** for _replacement_ and **tournament** for _selection_. On the other hand, *multi.txt* is for use in *Multi-Objective Optimisation* and uses **NSGA 2 replacement** and **NSGA 2 selection**.
+The parameter files for this project can be found in the _GE_Mammography_Classification/parameters_ folder, along with more information. The primary parameter files used throughout this project were *single.txt* and *multi.txt*. The difference between these two parameter files are that *single.txt* is for use in *Single Objective Optimisation* and uses **generational** for _replacement_ and **tournament** for _selection_. On the other hand, *multi.txt* is for use in *Multi-Objective Optimisation* and uses **NSGA 2 replacement** and **NSGA 2 selection**.
 
 #### Fitness Functions
 Four fitness functions were implemented as part of this project:
@@ -51,6 +51,7 @@ Four fitness functions were implemented as part of this project:
 * Matthews Correlation Coefficient (MCC)
 * Average Accuracy (AVG)
 
+The fitness functions for this project can be found in the _GE_Mammography_Classification/src/fitness_ folder, along with more information.
 ###### True Positive Rate
 The first fitness function taken into consideration was the true positive rate also known as Sensitivity i.e., the number of correctly identified suspicious areas per segment. The equation for the TPR can be seen in the image below.
 
