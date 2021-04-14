@@ -31,7 +31,7 @@ class MultiObjective(base_ff):
         current_time = time.strftime("%H-%M-%S", t)
         self.filename = current_time + ".txt"
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "../data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         df.sort_values(by=['Label'], inplace=True)
 
@@ -67,7 +67,7 @@ class MultiObjective(base_ff):
             self.start = 0
             self.n_points = round(len(data) * .20)
             self.points = list(range(0, self.n_points))
-            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+            in_file = "../data/haralick02_50K.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
             self.correctLabels = self.labels[0:self.n_points].values.tolist()
@@ -312,12 +312,11 @@ class MultiObjective(base_ff):
         self.n_points = round(len(data) * .20)
         self.points = list(range(0, self.n_points))
         progOuts = []
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "../data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         self.labels = df['Label']
         self.correctLabels = self.labels[0:self.n_points].values.tolist()
-        training_attributes = data#[self.start:self.n_points]
-        #training_labels = self.labels[self.start:self.n_points].values.tolist()
+        training_attributes = data
         for i in (self.points):
             main = []
             opposite = []

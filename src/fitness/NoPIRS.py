@@ -31,7 +31,7 @@ class NoPIRS(base_ff):
         current_time = time.strftime("%H-%M-%S", t)
         self.filename = current_time + ".txt"
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
+        in_file = "../data/haralick_preparedV2.csv"
         df = pd.read_csv(in_file)
 
         haralick_features = []
@@ -59,7 +59,7 @@ class NoPIRS(base_ff):
             self.start = round(len(data) * .20)
             self.n_points = len(data)
             self.points = list(range(self.start, self.n_points))
-            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick_preparedV2.csv"
+            in_file = "../data/haralick_preparedV2.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
 
@@ -67,7 +67,7 @@ class NoPIRS(base_ff):
             # Set test datasets.
             data = self.test
             self.start = 0
-            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+            in_file = "../data/haralick02_50K.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
             self.n_points = round(len(self.labels) * .20)
@@ -270,7 +270,7 @@ class NoPIRS(base_ff):
         data = self.test
         self.start = 0
         progOuts = []
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "../data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         self.labels = df['Label']
         self.n_points = round(len(self.labels) * .20)
