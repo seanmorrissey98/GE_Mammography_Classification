@@ -37,6 +37,9 @@ Statistics such as the `generation`, `average tree size`, etc., along with eithe
 
 The results of each run are updated at each generation and can be found in the _GE_Mammography_Classification/results_ folder.
 
+## Experiments
+For more information on a **how-to** and experiments please read the [**README.md**](src/fitness/README.md) in the _GE_Mammography_Classification/src/fitness_ folder.
+
 ## Features
 #### Grammar
 The grammars for this project can be found in the _GE_Mammography_Classification/grammars_ folder, along with more information. The primary grammar file used throughout this project was *FypV2.pybnf*. The non-terminal set for the grammar is what will build out the derivation trees of individuals as it contains recursive elements. It does this through a recursive amount of if statements. The if statements can select and combine Haralick features and using logical operators compare them against other Haralick features.
