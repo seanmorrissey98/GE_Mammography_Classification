@@ -1,12 +1,15 @@
+import math
+import time
 from itertools import count
+from random import uniform
 from typing import Counter
-from fitness.base_ff_classes.base_ff import base_ff
+
+import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
-import math
-from random import uniform
-import numpy as np
-import time
+
+from fitness.base_ff_classes.base_ff import base_ff
+
 
 class NoPIRS(base_ff):
     """
@@ -19,7 +22,6 @@ class NoPIRS(base_ff):
     default_fitness = [-1, -1]
 
     def __init__(self):
-
         # Initialise base fitness function class.
         super().__init__()
         self.num_obj = 2
@@ -36,7 +38,7 @@ class NoPIRS(base_ff):
 
         haralick_features = []
         for i in range(104):
-            feature = "x"+ str(i)
+            feature = "x" + str(i)
             haralick_features.append(feature)
         self.data = df[haralick_features]
         self.labels = df['Label']
@@ -100,7 +102,8 @@ class NoPIRS(base_ff):
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
 
-        fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
+        fitness = [self.getTruePositiveRate(
+            progOuts), self.getRocAucScore(progOuts)]
         return fitness
 
     @staticmethod
@@ -151,7 +154,8 @@ class NoPIRS(base_ff):
         if bestError < errorCount:
             errorCount = bestError
             self.boundary = bestBoundary
-            self.getBoundary(lowerLimit, upperLimit, newMid, newBottom, newTop, errorCount, progOutput)
+            self.getBoundary(lowerLimit, upperLimit, newMid,
+                             newBottom, newTop, errorCount, progOutput)
         else:
             # No better boundary to be found
             return
@@ -162,6 +166,7 @@ class NoPIRS(base_ff):
     the program outputs to calculate the classification error for that specific
     boundary.
     """
+
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -296,7 +301,7 @@ class NoPIRS(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        tp = self.getTruePositiveRate(progOuts) 
+        tp = self.getTruePositiveRate(progOuts)
         auc = self.getRocAucScore(progOuts)
         if tp > self.test1 and auc > self.test2:
             self.test1 = tp
@@ -305,8 +310,8 @@ class NoPIRS(base_ff):
 
     def writeClassifier(self, p, fitness):
         file = open(self.filename, "a")
-        file.write("Training fitness: " + str(fitness) +"\n")
-        file.write("Test TPR: " + str(self.test1) +"\n")
+        file.write("Training fitness: " + str(fitness) + "\n")
+        file.write("Test TPR: " + str(self.test1) + "\n")
         file.write("Test AUC: " + str(self.test2) + "\n")
         file.write(p)
         file.write("\n\n\n")

@@ -1,12 +1,15 @@
+import math
+import time
 from itertools import count
+from random import uniform
 from typing import Counter
-from fitness.base_ff_classes.base_ff import base_ff
+
+import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
-import math
-from random import uniform
-import numpy as np
-import time
+
+from fitness.base_ff_classes.base_ff import base_ff
+
 
 class MonteCarlo(base_ff):
     """
@@ -19,7 +22,6 @@ class MonteCarlo(base_ff):
     default_fitness = [-1, -1]
 
     def __init__(self):
-
         # Initialise base fitness function class.
         super().__init__()
         self.num_obj = 2
@@ -36,7 +38,7 @@ class MonteCarlo(base_ff):
 
         haralick_features = []
         for i in range(104):
-            feature = "x"+ str(i)
+            feature = "x" + str(i)
             haralick_features.append(feature)
         self.data = df[haralick_features]
         self.labels = df['Label']
@@ -96,7 +98,8 @@ class MonteCarlo(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
+        fitness = [self.getTruePositiveRate(
+            progOuts), self.getRocAucScore(progOuts)]
 
         self.tp_ind.append(self.getTruePositiveRate(progOuts))
         self.auc_ind.append(self.getRocAucScore(progOuts))
@@ -160,7 +163,8 @@ class MonteCarlo(base_ff):
         if bestError < errorCount:
             errorCount = bestError
             self.boundary = bestBoundary
-            self.getBoundary(lowerLimit, upperLimit, newMid, newBottom, newTop, errorCount, progOutput)
+            self.getBoundary(lowerLimit, upperLimit, newMid,
+                             newBottom, newTop, errorCount, progOutput)
         else:
             # No better boundary to be found
             return
@@ -171,6 +175,7 @@ class MonteCarlo(base_ff):
     the program outputs to calculate the classification error for that specific
     boundary.
     """
+
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -281,7 +286,8 @@ class MonteCarlo(base_ff):
         variance = self.getVariance(population, average)
         standardDeviation = self.getSDeviation(variance)
         file.write(text + " variance: " + str(variance) + "\n")
-        file.write(text + " standard deviation: " + str(standardDeviation) + "\n")
+        file.write(text + " standard deviation: " +
+                   str(standardDeviation) + "\n")
         file.write(text + " average: " + str(average) + "\n\n")
         return
 

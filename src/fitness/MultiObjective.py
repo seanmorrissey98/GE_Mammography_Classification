@@ -1,12 +1,15 @@
+import math
+import time
 from itertools import count
+from random import uniform
 from typing import Counter
-from fitness.base_ff_classes.base_ff import base_ff
+
+import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
-import math
-from random import uniform
-import numpy as np
-import time
+
+from fitness.base_ff_classes.base_ff import base_ff
+
 
 class MultiObjective(base_ff):
     """
@@ -19,7 +22,6 @@ class MultiObjective(base_ff):
     default_fitness = [-1, -1]
 
     def __init__(self):
-
         # Initialise base fitness function class.
         super().__init__()
         self.num_obj = 2
@@ -37,7 +39,7 @@ class MultiObjective(base_ff):
 
         haralick_features = []
         for i in range(104):
-            feature = "x"+ str(i)
+            feature = "x" + str(i)
             haralick_features.append(feature)
         self.data = df[haralick_features]
         self.labels = df['Label']
@@ -71,10 +73,10 @@ class MultiObjective(base_ff):
             df = pd.read_csv(in_file)
             self.labels = df['Label']
             self.correctLabels = self.labels[0:self.n_points].values.tolist()
-        
+
         p, d = ind.phenotype, {}
         training_attributes = data
-        
+
         for i in (self.points):
             main = []
             opposite = []
@@ -88,7 +90,7 @@ class MultiObjective(base_ff):
             exec(p, d)
             # Append output of classifier to program output list
             progOuts.append(d["XXX_output_XXX"])
-        
+
         # Loop finished we now have all classifier output for each row in the training set
         # We now initialise all variables for OICB
         initMid = progOuts[round(len(progOuts) / 2)]
@@ -99,7 +101,8 @@ class MultiObjective(base_ff):
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
 
-        fitness = [self.getTruePositiveRate(progOuts), self.getRocAucScore(progOuts)]
+        fitness = [self.getTruePositiveRate(
+            progOuts), self.getRocAucScore(progOuts)]
         return fitness
 
     @staticmethod
@@ -150,7 +153,8 @@ class MultiObjective(base_ff):
         if bestError < errorCount:
             errorCount = bestError
             self.boundary = bestBoundary
-            self.getBoundary(lowerLimit, upperLimit, newMid, newBottom, newTop, errorCount, progOutput)
+            self.getBoundary(lowerLimit, upperLimit, newMid,
+                             newBottom, newTop, errorCount, progOutput)
         else:
             # No better boundary to be found
             return
@@ -161,6 +165,7 @@ class MultiObjective(base_ff):
     the program outputs to calculate the classification error for that specific
     boundary.
     """
+
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
         training_labels = self.correctLabels
@@ -270,7 +275,8 @@ class MultiObjective(base_ff):
         file.write("Boundary = " + str(self.boundary)+"\n")
         file.write(str(message) + "\n")
         for i in range(len(predictions)):
-            file.write("Actual: " + str(self.labels[self.start + i])+ " vs Predicted: " + str(predictions[i])+"\n")
+            file.write(
+                "Actual: " + str(self.labels[self.start + i]) + " vs Predicted: " + str(predictions[i])+"\n")
         file.write("\n\n\n")
         file.close()
 
@@ -282,14 +288,14 @@ class MultiObjective(base_ff):
         percentage_b = round(benign/total, 2)
         percentage_m = round(malignant/total, 2)
 
-        percent_majority = round(uniform(percentage_m, percentage_b),2)
-        percent_minority = round(1 - percent_majority,2)
+        percent_majority = round(uniform(percentage_m, percentage_b), 2)
+        percent_minority = round(1 - percent_majority, 2)
 
         majority_datapoints = round(total * percent_majority)
         minority_datapoints = round(total * percent_minority)
 
         if majority_datapoints + minority_datapoints == 5000:
-            majority_datapoints = majority_datapoints -1
+            majority_datapoints = majority_datapoints - 1
 
         datapoints = []
         start = 0
@@ -299,7 +305,7 @@ class MultiObjective(base_ff):
             datapoints.append(round(uniform(start, int(benign))))
 
         for i in range(int(minority_datapoints)):
-            datapoints.append(round(uniform(int(benign),end-1)))
+            datapoints.append(round(uniform(int(benign), end-1)))
 
         self.correctLabels = []
         for i in datapoints:
@@ -336,7 +342,7 @@ class MultiObjective(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        tp = self.getTruePositiveRate(progOuts) 
+        tp = self.getTruePositiveRate(progOuts)
         auc = self.getRocAucScore(progOuts)
         if tp > self.test1 and auc > self.test2:
             self.test1 = tp
@@ -345,8 +351,8 @@ class MultiObjective(base_ff):
 
     def writeClassifier(self, p, fitness):
         file = open(self.filename, "a")
-        file.write("Training fitness: " + str(fitness) +"\n")
-        file.write("Test TPR: " + str(self.test1) +"\n")
+        file.write("Training fitness: " + str(fitness) + "\n")
+        file.write("Test TPR: " + str(self.test1) + "\n")
         file.write("Test AUC: " + str(self.test2) + "\n")
         file.write(p)
         file.write("\n\n\n")

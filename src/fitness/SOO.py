@@ -1,29 +1,20 @@
+import math
+import time
 from itertools import count
+from random import uniform
 from typing import Counter
-from fitness.base_ff_classes.base_ff import base_ff
+
+import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
-import math
-from random import uniform
-import numpy as np
-import time
+
+from fitness.base_ff_classes.base_ff import base_ff
+
 
 class SOO(base_ff):
-    """
-    Py-max is a max-style problem where the goal is to generate a function
-    which outputs a large number. In the standard GP Max [Gathercole and
-    Ross] problem this function can only use the constant (0.5) and functions
-    (+, *). The Py-max problem allows more programming: numerical expressions,
-    assignment statements and loops. See pymax.pybnf.
-
-    Chris Gathercole and Peter Ross. An adverse interaction between crossover
-    and restricted tree depth in genetic programming. In John R. Koza,
-    David E. Goldberg, David B. Fogel, and Rick L. Riolo, editors, Genetic
-    Programming 1996: Proceedings of the First Annual Conference.
-    """
 
     maximise = True  # True as it ever was.
-    
+
     def __init__(self):
         # Initialise base fitness function class.
         super().__init__()
@@ -31,13 +22,13 @@ class SOO(base_ff):
         current_time = time.strftime("%H-%M-%S", t)
         self.filename = current_time + ".txt"
 
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "../data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         df.sort_values(by=['Label'], inplace=True)
 
         haralick_features = []
         for i in range(104):
-            feature = "x"+ str(i)
+            feature = "x" + str(i)
             haralick_features.append(feature)
         self.data = df[haralick_features]
         self.labels = df['Label']
@@ -47,7 +38,7 @@ class SOO(base_ff):
         self.counter = 0
         self.test1 = 0
         self.test2 = 0
-    
+
     def evaluate(self, ind, **kwargs):
         dist = kwargs.get('dist', 'training')
         data = []
@@ -68,7 +59,7 @@ class SOO(base_ff):
             self.start = 0
             self.n_points = round(len(data) * .20)
             self.points = list(range(0, self.n_points))
-            in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+            in_file = "../data/haralick02_50K.csv"
             df = pd.read_csv(in_file)
             self.labels = df['Label']
             self.correctLabels = self.labels[0:self.n_points].values.tolist()
@@ -97,7 +88,7 @@ class SOO(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        
+
         fitness = self.getRocAucScore(progOuts)
         return fitness
 
@@ -133,7 +124,8 @@ class SOO(base_ff):
         if bestError < errorCount:
             errorCount = bestError
             self.boundary = bestBoundary
-            self.getBoundary(lowerLimit, upperLimit, newMid, newBottom, newTop, errorCount, progOutput)
+            self.getBoundary(lowerLimit, upperLimit, newMid,
+                             newBottom, newTop, errorCount, progOutput)
         else:
             # No better boundary to be found
             return
@@ -144,6 +136,7 @@ class SOO(base_ff):
     the program outputs to calculate the classification error for that specific
     boundary.
     """
+
     def getClassificationErrors(self, boundary, progOuts):
         fp, fn = 0, 0
         training_labels = self.correctLabels
@@ -256,14 +249,14 @@ class SOO(base_ff):
         percentage_b = round(benign/total, 2)
         percentage_m = round(malignant/total, 2)
 
-        percent_majority = round(uniform(percentage_m, percentage_b),2)
-        percent_minority = round(1 - percent_majority,2)
+        percent_majority = round(uniform(percentage_m, percentage_b), 2)
+        percent_minority = round(1 - percent_majority, 2)
 
         majority_datapoints = round(total * percent_majority)
         minority_datapoints = round(total * percent_minority)
 
         if majority_datapoints + minority_datapoints == 5000:
-            majority_datapoints = majority_datapoints -1
+            majority_datapoints = majority_datapoints - 1
 
         datapoints = []
         start = 0
@@ -273,7 +266,7 @@ class SOO(base_ff):
             datapoints.append(round(uniform(start, int(benign))))
 
         for i in range(int(minority_datapoints)):
-            datapoints.append(round(uniform(int(benign),end-1)))
+            datapoints.append(round(uniform(int(benign), end-1)))
 
         self.correctLabels = []
         for i in datapoints:
@@ -286,11 +279,11 @@ class SOO(base_ff):
         self.n_points = round(len(data) * .20)
         self.points = list(range(0, self.n_points))
         progOuts = []
-        in_file = "C:/Users/seanm/Desktop/GE_Mammography_Classification/data/haralick02_50K.csv"
+        in_file = "../data/haralick02_50K.csv"
         df = pd.read_csv(in_file)
         self.labels = df['Label']
         self.correctLabels = self.labels[0:self.n_points].values.tolist()
-        training_attributes = data#[self.start:self.n_points]
+        training_attributes = data  # [self.start:self.n_points]
         #training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in (self.points):
             main = []
@@ -311,7 +304,7 @@ class SOO(base_ff):
         initMax = (initMid + max) / 2
         error = 1
         self.getBoundary(min, max, initMid, initMin, initMax, error, progOuts)
-        tp = self.getTruePositiveRate(progOuts) 
+        tp = self.getTruePositiveRate(progOuts)
         auc = self.getRocAucScore(progOuts)
         if tp > self.test1 and auc > self.test2:
             self.test1 = tp
@@ -320,8 +313,8 @@ class SOO(base_ff):
 
     def writeClassifier(self, p, fitness):
         file = open(self.filename, "a")
-        file.write("Training fitness: " + str(fitness) +"\n")
-        file.write("Test TPR: " + str(self.test1) +"\n")
+        file.write("Training fitness: " + str(fitness) + "\n")
+        file.write("Test TPR: " + str(self.test1) + "\n")
         file.write("Test AUC: " + str(self.test2) + "\n")
         file.write(p)
         file.write("\n\n\n")
