@@ -38,7 +38,7 @@ Statistics such as the `generation`, `average tree size`, etc., along with eithe
 The results of each run are updated at each generation and can be found in the _GE_Mammography_Classification/results_ folder.
 
 ## Experiments
-For more information on a **how-to** and experiments please read the [**README.md**](src/fitness/README.md) in the _GE_Mammography_Classification/src/fitness_ folder.
+All experiments were ran using **Python 3.8.9**. For more information on a **how-to** and experiments please read the [**README.md**](src/fitness/README.md) in the _GE_Mammography_Classification/src/fitness_ folder.
 
 ## Features
 #### Grammar

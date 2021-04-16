@@ -22,7 +22,8 @@ class MonteCarlo(base_ff):
     default_fitness = [-1, -1]
 
     def __init__(self):
-        # Initialise base fitness function class.
+        """Initialise base fitness function class and its variables.
+        """
         super().__init__()
         self.num_obj = 2
         dummyfit = base_ff()
@@ -52,6 +53,14 @@ class MonteCarlo(base_ff):
         self.mcc_ind = []
 
     def evaluate(self, ind, **kwargs):
+        """Evaluate an individual on the test or training set using two fitness functions
+
+        Args:
+            ind (individual): A representation of the individual classifier
+
+        Returns:
+            list[float]: A list of the fitness values for the classifier
+        """
         dist = kwargs.get('dist', 'training')
         data = []
         progOuts = []
@@ -124,7 +133,7 @@ class MonteCarlo(base_ff):
 
         :param fitness_vector: A vector/list of fitnesses.
         :param objective_index: The index of the desired fitness.
-        :return: The fitness at the objective index of the fitness vecror.
+        :return: The fitness at the objective index of the fitness vector.
         """
         if not isinstance(fitness_vector, list):
             return float("inf")
@@ -132,6 +141,17 @@ class MonteCarlo(base_ff):
         return fitness_vector[objective_index]
 
     def getBoundary(self, lowerLimit, upperLimit, mid, bottom, top, errorCount, progOutput):
+        """Sets the boundary to be used to be the best found by OICB
+
+        Args:
+            lowerLimit (float): The lowest value program output from the classifier
+            upperLimit (float): The highest value program output from the classifier
+            mid (float): The middle boundary to be tested
+            bottom (float): The bottom boundary to be tested
+            top (float): The top boundary to be tested
+            errorCount (integer): The classification error
+            progOutput (list[float]): A list of the program outputs from the classifier
+        """
         # Calculate the classification error for mid, top and bottom boundaries
         midError = self.getClassificationErrors(mid, progOutput)
         botError = self.getClassificationErrors(bottom, progOutput)
@@ -169,14 +189,16 @@ class MonteCarlo(base_ff):
             # No better boundary to be found
             return
 
-    """
-    Loop through the program outputs comparing them to the boundary passed in.
-    Calculate all false positives and false negatives and divide by the length of
-    the program outputs to calculate the classification error for that specific
-    boundary.
-    """
-
     def getClassificationErrors(self, boundary, progOuts):
+        """Returns the classification error for an individual based on a specific boundary
+
+        Args:
+            boundary (float): The boundary to use when calculating classification error
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The classification error for an individual based on the boundary
+        """
         fp, fn = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
@@ -191,6 +213,14 @@ class MonteCarlo(base_ff):
         return (fp + fn) / len(progOuts)
 
     def getRocAucScore(self, progOuts):
+        """Gets area under the curve for a classifier based on its program outputs
+
+        Args:
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The AUC for a classifier
+        """
         predictions = []
         training_labels = self.labels[self.start:self.n_points].values.tolist()
         for i in range(len(progOuts)):
@@ -201,6 +231,14 @@ class MonteCarlo(base_ff):
         return roc_auc_score(training_labels, predictions)
 
     def getTruePositiveRate(self, progOuts):
+        """Gets the true positive rate for a classifier based on its program outputs
+
+        Args:
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The true positive rate for a classifier
+        """
         tp, fn = 0, 0
         tn, fp = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -221,6 +259,14 @@ class MonteCarlo(base_ff):
         return tp/(tp+fn)
 
     def getFalsePositiveRate(self, progOuts):
+        """Gets the false positive rate for a classifier based on its program outputs
+
+        Args:
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The false positive rate for a classifier
+        """
         tp, fn = 0, 0
         tn, fp = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -241,6 +287,14 @@ class MonteCarlo(base_ff):
         return -(fp/(fp+tn))
 
     def getAVGA(self, progOuts):
+        """Gets the average accuracy for a classifier based on its program outputs
+
+        Args:
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The average accuracy for a classifier
+        """
         tp, fn = 0, 0
         tn, fp = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -260,6 +314,14 @@ class MonteCarlo(base_ff):
         return 0.5 * (tp/(tp+fn) + tn/(tn+fp))
 
     def getMCC(self, progOuts):
+        """Gets the MCC score for a classifier based on its program outputs
+
+        Args:
+            progOuts (list[float]): A list of the program outputs from the classifier
+
+        Returns:
+            float: The Matthews Correlation Coefficient for a classifier
+        """
         tp, fn = 0, 0
         tn, fp = 0, 0
         training_labels = self.labels[self.start:self.n_points].values.tolist()
@@ -281,6 +343,12 @@ class MonteCarlo(base_ff):
         return numerator / denominator
 
     def monteCarlo(self, population, text):
+        """Monte Carlo Simulation which calculates metrics for a specific fitness function
+
+        Args:
+            population (list[float]): A list of the initial generations fitness values
+            text (string): The name of the fitness function, used when writing to file
+        """
         file = open("MonteCarlo.txt", "a")
         average = self.getAverage(population)
         variance = self.getVariance(population, average)
@@ -292,15 +360,40 @@ class MonteCarlo(base_ff):
         return
 
     def getVariance(self, population, average):
+        """Function for getting the population variance of the initial generation
+
+        Args:
+            population (list[float]): A list of the initial generations fitness values
+            average (float): The average fitness value of the population
+
+        Returns:
+            float: The population variance of the populations fitness
+        """
         sum = 0
         for i in population:
             sum = sum + ((i - average) * (i - average))
         return sum / len(population)
 
     def getSDeviation(self, variance):
+        """Function for getting the standard deviation of the initial generation
+
+        Args:
+            variance (float): The population variance of the populations fitness
+
+        Returns:
+            float: The standard deviation of the populations fitness
+        """
         return math.sqrt(variance)
 
     def getAverage(self, population):
+        """Function for getting the average fitness of the initial generation
+
+        Args:
+            population (list[float]): A list of the initial generations fitness values
+
+        Returns:
+            float: The average fitness value of the population
+        """
         sum = 0
         for i in population:
             sum = sum + i
