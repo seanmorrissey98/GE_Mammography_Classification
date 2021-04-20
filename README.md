@@ -41,6 +41,9 @@ The results of each run are updated at each generation and can be found in the _
 All experiments were ran using **Python 3.8.9**. For more information on a **how-to** and experiments please read the [**README.md**](src/fitness/README.md) in the _GE_Mammography_Classification/src/fitness_ folder.
 
 ## Features
+#### Datasets
+Two datasets were primarily used throughout this project, with further information on both being included in the `README.md` [**here**](data/README.md) or in the _GE_Mammography_Classification/data_ folder.
+
 #### Grammar
 The grammars for this project can be found in the _GE_Mammography_Classification/grammars_ folder, along with more information. The primary grammar file used throughout this project was *FypV2.pybnf*. The non-terminal set for the grammar is what will build out the derivation trees of individuals as it contains recursive elements. It does this through a recursive amount of if statements. The if statements can select and combine Haralick features and using logical operators compare them against other Haralick features.
 
